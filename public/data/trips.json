@@ -1,0 +1,290 @@
+{
+  "21985a98-1505-4435-8317-6e3c0c3a0205": {
+  "1fbd0f8a-23d4-4a02-b0e2-6f4b4d4f7c01": {
+    "overview": {
+      "headline": "Aruba, here you come!",
+      "subhead": "five sunny days on One Happy Island",
+      "destination": "Aruba · Beach",
+      "preparedByLine": "Prepared for Steph Perz by Kaitlyn Truran, Big Little Adventures · Quoted July 14, 2026 · An Apple Vacations getaway"
+    },
+    "travelers": {
+      "count": "2 adults · 1 child",
+      "sleeps": "5 sleeps",
+      "dateRange": "Oct 4 – Oct 9, 2026"
+    },
+    "flights": {
+      "airline": "American Airlines",
+      "departure": {
+        "date": "SUN · OCT 4",
+        "from": {
+          "code": "DFW",
+          "city": "Dallas"
+        },
+        "to": {
+          "code": "AUA",
+          "city": "Aruba"
+        },
+        "departTime": "5:00 AM",
+        "arriveTime": "3:10 PM",
+        "stops": "1 · via MIA",
+        "duration": "9h 10m",
+        "segment1": {
+          "flight": "American Airlines #3189",
+          "detail": "DFW 5:00 AM → MIA 8:53 AM · Sun, Oct 4"
+        },
+        "segment2": {
+          "flight": "American Airlines #2217",
+          "detail": "MIA 12:15 PM → AUA 3:10 PM · Sun, Oct 4"
+        },
+        "barcode": "AA · DFW→AUA · 04OCT26"
+      },
+      "return": {
+        "date": "FRI · OCT 9",
+        "from": {
+          "code": "AUA",
+          "city": "Aruba"
+        },
+        "to": {
+          "code": "DFW",
+          "city": "Dallas"
+        },
+        "departTime": "4:55 PM",
+        "arriveTime": "12:07 AM +1",
+        "stops": "1 · via MIA",
+        "duration": "8h 12m",
+        "segment1": {
+          "flight": "American Airlines #2217",
+          "detail": "AUA 4:55 PM → MIA 8:04 PM · Fri, Oct 9"
+        },
+        "segment2": {
+          "flight": "American Airlines #1679",
+          "detail": "MIA 9:40 PM → DFW 12:07 AM · Sat, Oct 10"
+        },
+        "barcode": "AA · AUA→DFW · 09OCT26"
+      }
+    },
+    "hotel": {
+      "name": "Divi Aruba — All Inclusive",
+      "tagline": "right on the beach",
+      "rating": "★ 4.0 RATING",
+      "checkin": "Sun, Oct 4, 2026",
+      "checkout": "Fri, Oct 9, 2026",
+      "nights": "5",
+      "room": {
+        "occupancy": "ROOM 1 · 2 ADULTS · 1 CHILD",
+        "type": "Beachside · 2 Queen Beds",
+        "note": "All-inclusive · full privileges at both Divi & Tamarijn resorts"
+      },
+      "amenities": [
+        "All meals & snacks across 11 dining options at both resorts",
+        "Unlimited beverages at 8 bars",
+        "Complimentary Wi-Fi in room & throughout the property",
+        "Snorkeling gear, e-bikes, pool floats, kayaks & noodles",
+        "Yoga, Pilates & Zumba classes plus a full fitness center",
+        "30-foot rock climbing wall & beach volleyball",
+        "Tennis, pickleball courts & kids' and adults' bikes",
+        "Nightly entertainment · all taxes & service fees included"
+      ],
+      "honeymoon": {
+        "title": "Honeymoon welcome gift",
+        "description": "Celebrating a honeymoon? Enjoy a preferred room location, a bottle of champagne with a remembrance gift, turndown service, and a 15% coupon for Fusion restaurant at the Shops at Alhambra. Enter \"Honeymoon\" in the Special Service Request at check-out. Travel must occur within six months of the wedding; proof of marriage required at check-in."
+      },
+      "note": "An adult 21 years or older must be present in each room at check-in. Inclusions subject to change; some restrictions may apply."
+    },
+    "addons": [
+      {
+        "title": "Roundtrip transfers",
+        "description": "Shared transportation to & from your hotel · Oct 4"
+      },
+      {
+        "title": "Entry requirements",
+        "description": "Entry protocols & guidance for Aruba · Oct 4"
+      },
+      {
+        "title": "Travel ID checklist",
+        "description": "Identification required for travel · Oct 4"
+      }
+    ],
+    "pricing": {
+      "totalPrice": "$6,829.28",
+      "totalWithoutFlights": "$4,359.17",
+      "deposit": {
+        "amount": "$750.00",
+        "dueDate": "by July 17, 2026"
+      },
+      "fullPayment": {
+        "amount": "$6,829.28",
+        "dueDate": "by Aug 20, 2026"
+      },
+      "payments": {
+        "paidToDate": "$0.00",
+        "balanceDue": "$6,829.28",
+        "packagePrice": "$7,000.11"
+      },
+      "breakdown": {
+        "adults": {
+          "label": "Adult base price (×2)",
+          "price": "$3,182.37"
+        },
+        "child": {
+          "label": "Child / junior base price (×1)",
+          "price": "$635.38"
+        },
+        "promotion": {
+          "label": "Promotion (JULY26)",
+          "amount": "−$170.83"
+        },
+        "optionsAmount": "$0.00",
+        "payInDestination": "$0.00"
+      }
+    },
+    "contact": {
+      "advisor": "Kaitlyn",
+      "advisorFull": "Kaitlyn Truran"
+    }
+  },
+  "74b53f37-9b69-4ce9-9f9b-3bbfb8de3d2e": {
+    "overview": {
+      "headline": "Los Cabos, here you come!",
+      "subhead": "five sun-soaked days on the Baja coast",
+      "destination": "Los Cabos · Beach",
+      "preparedByLine": "Prepared for Steph Perz by Kaitlyn Truran, Big Little Adventures · Quoted July 14, 2026 · An Apple Vacations getaway"
+    },
+    "travelers": {
+      "count": "2 adults · 1 child",
+      "sleeps": "5 sleeps",
+      "dateRange": "Oct 4 – Oct 9, 2026"
+    },
+    "flights": {
+      "airline": "Southwest Airlines",
+      "departure": {
+        "date": "SUN · OCT 4",
+        "from": {
+          "code": "DAL",
+          "city": "Dallas"
+        },
+        "to": {
+          "code": "SJD",
+          "city": "Los Cabos"
+        },
+        "departTime": "8:00 AM",
+        "arriveTime": "11:05 AM",
+        "stops": "1 · via AUS",
+        "duration": "5h 5m",
+        "segment1": {
+          "flight": "Southwest Airlines #987",
+          "detail": "DAL 8:00 AM → AUS 9:00 AM · Sun, Oct 4"
+        },
+        "segment2": {
+          "flight": "Southwest Airlines #627",
+          "detail": "AUS 10:30 AM → SJD 11:05 AM · Sun, Oct 4"
+        },
+        "barcode": "WN · DAL→SJD · 04OCT26"
+      },
+      "return": {
+        "date": "FRI · OCT 9",
+        "from": {
+          "code": "SJD",
+          "city": "Los Cabos"
+        },
+        "to": {
+          "code": "DAL",
+          "city": "Dallas"
+        },
+        "departTime": "1:05 PM",
+        "arriveTime": "9:50 PM",
+        "stops": "1 · via SAN",
+        "duration": "6h 45m",
+        "segment1": {
+          "flight": "Southwest Airlines #1234",
+          "detail": "SJD 1:05 PM → SAN 3:20 PM · Fri, Oct 9"
+        },
+        "segment2": {
+          "flight": "Southwest Airlines #1382",
+          "detail": "SAN 4:50 PM → DAL 9:50 PM · Fri, Oct 9"
+        },
+        "barcode": "WN · SJD→DAL · 09OCT26"
+      }
+    },
+    "hotel": {
+      "name": "Dreams Los Cabos Suites Golf Resort & Spa — All Inclusive",
+      "tagline": "San Jose del Cabo",
+      "rating": "★ 5.0 RATING",
+      "checkin": "Sun, Oct 4, 2026",
+      "checkout": "Fri, Oct 9, 2026",
+      "nights": "5",
+      "room": {
+        "occupancy": "ROOM 1 · 2 ADULTS · 1 CHILD",
+        "type": "Junior Suite Ocean View King",
+        "note": "Unlimited-Luxury all-inclusive · book now for $350 Instant Savings"
+      },
+      "amenities": [
+        "À la carte gourmet dining, no reservations required",
+        "Unlimited top-shelf domestic & international spirits",
+        "Unlimited natural fruit juices & soft drinks",
+        "24-hour room & concierge service",
+        "Pool and beach wait service",
+        "Daily refreshed mini-bar (soft drinks, juice, water & beer)",
+        "Daily maid service",
+        "Live nightly entertainment, theme parties & oceanfront bars"
+      ],
+      "honeymoon": {
+        "title": "Booking perks included",
+        "description": "Book now for $350 Instant Savings plus free perks: an in-room sparkling-wine family breakfast, a 25% spa discount (one per person/stay), one bottle of wine, rum or tequila per room, and a $200 resort credit per stay (up to $50/day). Blackout Dec 21–Jan 4."
+      },
+      "note": "Student/spring-break groups traveling without a responsible adult in each room are not permitted; the hotel may deny lodging. All amenities subject to availability."
+    },
+    "addons": [
+      {
+        "title": "Instant Savings — July Sale",
+        "description": "Included with hotel · Oct 4"
+      },
+      {
+        "title": "Transportation to & from your hotel",
+        "description": "Included with hotel · Oct 4"
+      },
+      {
+        "title": "Identification required for travel",
+        "description": "Included with hotel · Oct 4"
+      }
+    ],
+    "pricing": {
+      "totalPrice": "$3,663.75",
+      "totalWithoutFlights": "$2,428.67",
+      "deposit": {
+        "amount": "$1,914.54",
+        "dueDate": "by July 14, 2026"
+      },
+      "fullPayment": {
+        "amount": "$3,663.75",
+        "dueDate": "by Aug 20, 2026"
+      },
+      "payments": {
+        "paidToDate": "$0.00",
+        "balanceDue": "$3,663.75",
+        "packagePrice": "$3,759.47"
+      },
+      "breakdown": {
+        "adults": {
+          "label": "Adult base price (×2)",
+          "price": "$1,879.74"
+        },
+        "child": {
+          "label": "Child / junior base price (×1)",
+          "price": "$0.00"
+        },
+        "promotion": {
+          "label": "Promotion (JULY26)",
+          "amount": "−$95.72"
+        },
+        "optionsAmount": "$0.00",
+        "payInDestination": "$0.00"
+      }
+    },
+    "contact": {
+      "advisor": "Kaitlyn",
+      "advisorFull": "Kaitlyn Truran"
+    }
+  }
+  }
+}

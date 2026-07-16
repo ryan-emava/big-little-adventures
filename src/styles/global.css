@@ -1,0 +1,118 @@
+/* Design-system tokens */
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+
+/* Global page styles (ported from the original site's inline <style>) */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--cream-100, #fbf3e7);
+  font-family: var(--font-body);
+  color: var(--ink-900);
+}
+
+a {
+  color: var(--coral-500, #e8734a);
+}
+a:hover {
+  color: var(--coral-700, #c85a34);
+}
+
+/* Nav links start teal and go coral on hover (ported from style-hover) */
+#main-nav .nav-link {
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+#main-nav .nav-link:hover {
+  color: var(--coral-500) !important;
+}
+
+/* Inquiry form field focus (ported from style-focus) */
+#request input:focus,
+#request select:focus,
+#request textarea:focus {
+  border-color: var(--teal-800);
+}
+
+/* Responsive rules (ported from Home.dc.html) */
+@media (max-width: 1080px) {
+  #hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  #hero-photo {
+    height: 380px !important;
+  }
+  #services-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 980px) {
+  #request-card {
+    grid-template-columns: 1fr !important;
+  }
+  #request-stub {
+    border-right: none !important;
+    border-bottom: 2px dashed var(--line-300);
+  }
+  #how-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+  #how-line {
+    display: none !important;
+  }
+  #about-grid {
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    text-align: center;
+  }
+  #about-grid h2,
+  #about-grid p {
+    text-align: left;
+  }
+  #quotes-grid {
+    grid-template-columns: 1fr !important;
+  }
+  [data-section] {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  #main-nav {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  #main-nav [data-nav-links] {
+    gap: 20px !important;
+  }
+}
+@media (max-width: 640px) {
+  #request-fields {
+    grid-template-columns: 1fr !important;
+  }
+  #services-grid {
+    grid-template-columns: 1fr !important;
+  }
+  #hero-h1 {
+    font-size: 44px !important;
+  }
+  #hero-h1 span {
+    font-size: 50px !important;
+  }
+  #hero-photo {
+    height: 300px !important;
+  }
+  [data-section] {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+  #footer-bar {
+    flex-direction: column !important;
+    gap: 20px;
+    align-items: flex-start !important;
+  }
+}

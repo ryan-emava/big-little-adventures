@@ -1,0 +1,4 @@
+/* Webfont substitutes loaded from Google Fonts CDN — see readme.md for the substitution note.
+   Real brand font files were not provided; swap these @font-face-equivalent <link> imports
+   for local @font-face rules once the brand supplies its actual files. */
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=Caveat:wght@500;600;700&family=IBM+Plex+Mono:wght@500&display=swap");

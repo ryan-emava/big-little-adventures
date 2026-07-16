@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/tokens/fonts.css"
+        />
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/tokens/colors.css"
+        />
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/tokens/typography.css"
+        />
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/tokens/spacing.css"
+        />
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/styles.css"
+        />
+        <script src="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/_ds_bundle.js"></script>
+        <style>
+          a {
+            color: var(--coral-500, #e8734a);
+          }
+          a:hover {
+            color: var(--coral-700, #c85a34);
+          }
+          @media (max-width: 640px) {
+            #footer-bar {
+              flex-direction: column !important;
+              gap: 20px;
+              align-items: flex-start !important;
+            }
+          }
+        </style>
+      </helmet>
+
+      <div
+        id="footer-bar"
+        style="
+          background: var(--teal-800);
+          padding: 44px 56px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: var(--font-body);
+        "
+      >
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; align-items: baseline; gap: 5px">
+            <span
+              style="font-family: var(--font-display); font-weight: 700; color: #fff; font-size: {{ footBigPx }}px;"
+              >big</span
+            >
+            <span
+              style="font-family: var(--font-script); font-weight: 700; color: var(--coral-400); font-size: {{ footLittlePx }}px;"
+              >little</span
+            >
+            <span
+              style="
+                font-family: var(--font-display);
+                font-weight: 600;
+                font-size: 12px;
+                letter-spacing: 0.22em;
+                color: #fff;
+              "
+              >ADVENTURES</span
+            >
+          </div>
+          <span
+            style="
+              font-family: var(--font-script);
+              font-size: 20px;
+              color: var(--teal-100);
+            "
+            >big memories · little travelers</span
+          >
+        </div>
+        <div
+          style="
+            display: flex;
+            gap: 28px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            color: var(--teal-100);
+          "
+        >
+          <a
+            href="{{ facebook }}"
+            style="color: var(--teal-100); text-decoration: none"
+            >Facebook</a
+          >
+          <a
+            href="{{ instagram }}"
+            style="color: var(--teal-100); text-decoration: none"
+            >Instagram</a
+          >
+          <a
+            href="https://biglittleadventures.co"
+            style="color: var(--teal-100); text-decoration: none"
+            >biglittleadventures.co</a
+          >
+        </div>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": "1280px", "height": "140px" },
+  "wordmarkSize": { "editor": "int", "default": 26, "min": 18, "max": 44, "step": 1, "unit": "px", "tsType": "number", "section": "Wordmark" },
+  "littleRatio": { "editor": "range", "default": 1, "min": 0.7, "max": 1, "step": 0.05, "tsType": "number", "section": "Wordmark" },
+  "facebook": { "editor": "text", "default": "https://facebook.com", "tsType": "string", "section": "Links" },
+  "instagram": { "editor": "text", "default": "https://instagram.com", "tsType": "string", "section": "Links" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          const big = Math.round((this.props.wordmarkSize ?? 26) * 0.85);
+          // "big" must never be smaller than "little"
+          const ratio = Math.min(this.props.littleRatio ?? 1, 1);
+          return {
+            footBigPx: big,
+            footLittlePx: Math.round(big * ratio),
+            facebook: this.props.facebook ?? 'https://facebook.com',
+            instagram: this.props.instagram ?? 'https://instagram.com',
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

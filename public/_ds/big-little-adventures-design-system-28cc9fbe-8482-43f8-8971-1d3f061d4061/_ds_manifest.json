@@ -1,0 +1,752 @@
+{
+  "namespace": "BigLittleAdventuresDesignSystem_28cc9f",
+  "components": [
+    { "name": "Barcode", "sourcePath": "components/brand/Barcode.jsx" },
+    { "name": "SunBurst", "sourcePath": "components/brand/SunBurst.jsx" },
+    { "name": "Wordmark", "sourcePath": "components/brand/Wordmark.jsx" },
+    { "name": "Badge", "sourcePath": "components/feedback/Badge.jsx" },
+    { "name": "StampTag", "sourcePath": "components/feedback/Badge.jsx" },
+    { "name": "Tooltip", "sourcePath": "components/feedback/Tooltip.jsx" },
+    { "name": "Button", "sourcePath": "components/forms/Button.jsx" },
+    { "name": "Checkbox", "sourcePath": "components/forms/Checkbox.jsx" },
+    { "name": "Input", "sourcePath": "components/forms/Input.jsx" },
+    { "name": "Switch", "sourcePath": "components/forms/Switch.jsx" },
+    {
+      "name": "BoardingPassCard",
+      "sourcePath": "components/layout/BoardingPassCard.jsx"
+    },
+    { "name": "Card", "sourcePath": "components/layout/Card.jsx" },
+    { "name": "Tabs", "sourcePath": "components/navigation/Tabs.jsx" }
+  ],
+  "startingPoints": [],
+  "cards": [
+    {
+      "path": "guidelines/brand-motifs.html",
+      "group": "Brand",
+      "viewport": "700x180",
+      "subtitle": "Boarding-pass framing, dashed flight paths, paper-airplane accents recur across the brand",
+      "name": "Ticket & Flight Motifs"
+    },
+    {
+      "path": "guidelines/brand-wordmark.html",
+      "group": "Brand",
+      "viewport": "700x180",
+      "subtitle": "Fredoka bold + Caveat script — the only real mark; no icon/symbol logo was supplied",
+      "name": "Wordmark"
+    },
+    {
+      "path": "guidelines/iconography.html",
+      "group": "Brand",
+      "viewport": "700x150",
+      "subtitle": "Lucide line icons (substitute — no brand icon set supplied), 2px stroke",
+      "name": "Iconography"
+    },
+    {
+      "path": "guidelines/colors-brand.html",
+      "group": "Colors",
+      "viewport": "700x150",
+      "subtitle": "Teal + coral primaries",
+      "name": "Brand Colors"
+    },
+    {
+      "path": "guidelines/colors-neutral.html",
+      "group": "Colors",
+      "viewport": "700x150",
+      "subtitle": "Cream page, peach panels, ink text",
+      "name": "Neutrals & Backgrounds"
+    },
+    {
+      "path": "components/brand/brand-marks.card.html",
+      "group": "Components",
+      "viewport": "700x180",
+      "subtitle": "Wordmark, sun corner motif, ticket barcode",
+      "name": "Brand Marks"
+    },
+    {
+      "path": "components/feedback/badge.card.html",
+      "group": "Components",
+      "viewport": "700x150",
+      "subtitle": "Status pills + the rotated 'ON TIME' stamp motif",
+      "name": "Badge / Stamp Tag"
+    },
+    {
+      "path": "components/forms/buttons.card.html",
+      "group": "Components",
+      "viewport": "700x230",
+      "subtitle": "Primary, brand, secondary, ghost, sizes, disabled",
+      "name": "Button"
+    },
+    {
+      "path": "components/forms/input.card.html",
+      "group": "Components",
+      "viewport": "700x150",
+      "subtitle": "Pill field + inline send button, focus ring",
+      "name": "Input"
+    },
+    {
+      "path": "components/forms/toggles.card.html",
+      "group": "Components",
+      "viewport": "700x150",
+      "subtitle": "Rounded-square check, pill toggle",
+      "name": "Checkbox & Switch"
+    },
+    {
+      "path": "components/layout/boarding-pass.card.html",
+      "group": "Components",
+      "viewport": "700x260",
+      "subtitle": "Generic surface + the signature ticket motif",
+      "name": "Card & Boarding Pass"
+    },
+    {
+      "path": "components/navigation/tabs.card.html",
+      "group": "Components",
+      "viewport": "700x120",
+      "subtitle": "Pill segmented control, teal active state",
+      "name": "Tabs"
+    },
+    {
+      "path": "ui_kits/marketing-site/index.html",
+      "group": "Marketing Site",
+      "viewport": "1040x760",
+      "subtitle": "Launch/waitlist page — direct recreation of the supplied screenshot",
+      "name": "Coming Soon"
+    },
+    {
+      "path": "guidelines/radius-shadow.html",
+      "group": "Spacing",
+      "viewport": "700x150",
+      "subtitle": "Cards use lg radius + soft floating shadow; pills for interactive controls",
+      "name": "Radius & Shadow"
+    },
+    {
+      "path": "guidelines/spacing-scale.html",
+      "group": "Spacing",
+      "viewport": "700x150",
+      "subtitle": "4px base, used for padding & gaps",
+      "name": "Spacing Scale"
+    },
+    {
+      "path": "guidelines/type-body.html",
+      "group": "Type",
+      "viewport": "700x160",
+      "subtitle": "Nunito Sans for copy, IBM Plex Mono for ticket codes",
+      "name": "Body + Mono"
+    },
+    {
+      "path": "guidelines/type-display.html",
+      "group": "Type",
+      "viewport": "700x160",
+      "subtitle": "Fredoka (chunky headings) + Caveat (handwritten accents)",
+      "name": "Display + Script"
+    }
+  ],
+  "templates": [],
+  "hasThumbnailHtml": false,
+  "globalCssPaths": [
+    "tokens/fonts.css",
+    "tokens/colors.css",
+    "tokens/typography.css",
+    "tokens/spacing.css",
+    "styles.css"
+  ],
+  "tokens": [
+    {
+      "name": "--teal-900",
+      "value": "#0d4750",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-800",
+      "value": "#0f5c66",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-700",
+      "value": "#146a75",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-500",
+      "value": "#1f8a94",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--teal-100",
+      "value": "#d9edee",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--coral-700",
+      "value": "#c85a34",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--coral-600",
+      "value": "#e0703f",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--coral-500",
+      "value": "#e8734a",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--coral-400",
+      "value": "#ef8f68",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--coral-100",
+      "value": "#fbe3d6",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--cream-100",
+      "value": "#fbf3e7",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--cream-050",
+      "value": "#fdf8f1",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--peach-100",
+      "value": "#faece0",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--white",
+      "value": "#ffffff",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--ink-900",
+      "value": "#24313a",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--ink-600",
+      "value": "#5b6b73",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--ink-400",
+      "value": "#8a9aa1",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--line-200",
+      "value": "#e7ddcf",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--line-300",
+      "value": "#d8ccb9",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-bg-page",
+      "value": "var(--cream-100)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-bg-surface",
+      "value": "var(--white)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-bg-surface-soft",
+      "value": "var(--peach-100)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-bg-brand",
+      "value": "var(--teal-800)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-bg-accent",
+      "value": "var(--coral-500)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-text-primary",
+      "value": "var(--ink-900)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-text-secondary",
+      "value": "var(--ink-600)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-text-muted",
+      "value": "var(--ink-400)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-text-brand",
+      "value": "var(--teal-800)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-text-accent",
+      "value": "var(--coral-500)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-text-on-accent",
+      "value": "var(--white)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-text-on-brand",
+      "value": "var(--white)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-border",
+      "value": "var(--line-200)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-border-strong",
+      "value": "var(--line-300)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-accent",
+      "value": "var(--coral-500)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-accent-hover",
+      "value": "var(--coral-600)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-accent-active",
+      "value": "var(--coral-700)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-brand",
+      "value": "var(--teal-800)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-brand-hover",
+      "value": "var(--teal-700)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-brand-active",
+      "value": "var(--teal-900)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-success",
+      "value": "#3f9457",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-warning",
+      "value": "#d99a2b",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--color-danger",
+      "value": "#d1553f",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--font-display",
+      "value": "\"Baloo 2\", \"Fredoka\", ui-rounded, sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-body",
+      "value": "\"Nunito Sans\", \"Nunito\", system-ui, sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-script",
+      "value": "\"Caveat\", cursive",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-mono",
+      "value": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-xs",
+      "value": "0.75rem",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-sm",
+      "value": "0.875rem",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-base",
+      "value": "1rem",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-md",
+      "value": "1.125rem",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-lg",
+      "value": "1.375rem",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-xl",
+      "value": "1.75rem",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-2xl",
+      "value": "2.25rem",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-3xl",
+      "value": "3rem",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-4xl",
+      "value": "3.75rem",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-tight",
+      "value": "1.1",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-snug",
+      "value": "1.3",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-normal",
+      "value": "1.5",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-relaxed",
+      "value": "1.65",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-tight",
+      "value": "-0.01em",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-normal",
+      "value": "0",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-wide",
+      "value": "0.06em",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-widest",
+      "value": "0.14em",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-regular",
+      "value": "400",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-semibold",
+      "value": "600",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-bold",
+      "value": "700",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-black",
+      "value": "800",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--space-1",
+      "value": "4px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-2",
+      "value": "8px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-3",
+      "value": "12px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-4",
+      "value": "16px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-5",
+      "value": "20px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-6",
+      "value": "24px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-8",
+      "value": "32px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-10",
+      "value": "40px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-12",
+      "value": "48px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-16",
+      "value": "64px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-20",
+      "value": "80px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-24",
+      "value": "96px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-sm",
+      "value": "8px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-md",
+      "value": "14px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-lg",
+      "value": "22px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-xl",
+      "value": "28px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-pill",
+      "value": "999px",
+      "kind": "radius",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--shadow-card",
+      "value": "0 20px 45px -20px rgba(13, 71, 80, 0.28)",
+      "kind": "shadow",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--shadow-card-soft",
+      "value": "0 10px 24px -12px rgba(13, 71, 80, 0.18)",
+      "kind": "shadow",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--shadow-focus",
+      "value": "0 0 0 4px rgba(232, 115, 74, 0.28)",
+      "kind": "shadow",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--border-hairline",
+      "value": "1px solid var(--color-border)",
+      "kind": "color",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--border-dashed",
+      "value": "2px dashed var(--line-300)",
+      "kind": "color",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--ease-standard",
+      "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--ease-bounce",
+      "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--duration-fast",
+      "value": "120ms",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--duration-standard",
+      "value": "200ms",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--duration-slow",
+      "value": "320ms",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    }
+  ],
+  "themes": [],
+  "fonts": [],
+  "brandFonts": [
+    {
+      "family": "Baloo 2",
+      "status": "ok",
+      "tokens": ["--font-display"],
+      "path": "tokens/typography.css"
+    },
+    {
+      "family": "Nunito Sans",
+      "status": "ok",
+      "tokens": ["--font-body"],
+      "path": "tokens/typography.css"
+    },
+    {
+      "family": "Caveat",
+      "status": "ok",
+      "tokens": ["--font-script"],
+      "path": "tokens/typography.css"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "status": "ok",
+      "tokens": ["--font-mono"],
+      "path": "tokens/typography.css"
+    }
+  ],
+  "source": "spa"
+}

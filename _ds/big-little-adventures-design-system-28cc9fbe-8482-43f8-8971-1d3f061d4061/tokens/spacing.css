@@ -1,0 +1,33 @@
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --radius-pill: 999px; /* buttons, inputs, tags, stamps */
+
+  --shadow-card: 0 20px 45px -20px rgba(13, 71, 80, 0.28);
+  --shadow-card-soft: 0 10px 24px -12px rgba(13, 71, 80, 0.18);
+  --shadow-focus: 0 0 0 4px rgba(232, 115, 74, 0.28);
+
+  --border-hairline: 1px solid var(--color-border);
+  --border-dashed: 2px dashed var(--line-300);
+
+  --ease-standard: cubic-bezier(0.32, 0.72, 0, 1); /* @kind other */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+  --duration-fast: 120ms; /* @kind other */
+  --duration-standard: 200ms; /* @kind other */
+  --duration-slow: 320ms; /* @kind other */
+}

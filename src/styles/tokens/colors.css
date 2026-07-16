@@ -1,0 +1,56 @@
+/* Big Little Adventures — Color tokens
+   Sampled from the launching-soon boarding-pass page (uploads screenshot). */
+:root {
+  /* Base palette */
+  --teal-900: #0d4750;
+  --teal-800: #0f5c66; /* primary teal — logo, headings, data text */
+  --teal-700: #146a75;
+  --teal-500: #1f8a94;
+  --teal-100: #d9edee;
+
+  --coral-700: #c85a34;
+  --coral-600: #e0703f;
+  --coral-500: #e8734a; /* primary coral — CTAs, accents */
+  --coral-400: #ef8f68;
+  --coral-100: #fbe3d6;
+
+  --cream-100: #fbf3e7; /* page background */
+  --cream-050: #fdf8f1;
+  --peach-100: #faece0; /* soft highlight panels (departure box) */
+
+  --white: #ffffff;
+  --ink-900: #24313a; /* body copy on cream/white */
+  --ink-600: #5b6b73;
+  --ink-400: #8a9aa1;
+  --line-200: #e7ddcf; /* hairlines, dashed dividers on cream */
+  --line-300: #d8ccb9;
+
+  /* Semantic aliases */
+  --color-bg-page: var(--cream-100);
+  --color-bg-surface: var(--white);
+  --color-bg-surface-soft: var(--peach-100);
+  --color-bg-brand: var(--teal-800);
+  --color-bg-accent: var(--coral-500);
+
+  --color-text-primary: var(--ink-900);
+  --color-text-secondary: var(--ink-600);
+  --color-text-muted: var(--ink-400);
+  --color-text-brand: var(--teal-800);
+  --color-text-accent: var(--coral-500);
+  --color-text-on-accent: var(--white);
+  --color-text-on-brand: var(--white);
+
+  --color-border: var(--line-200);
+  --color-border-strong: var(--line-300);
+
+  --color-accent: var(--coral-500);
+  --color-accent-hover: var(--coral-600);
+  --color-accent-active: var(--coral-700);
+  --color-brand: var(--teal-800);
+  --color-brand-hover: var(--teal-700);
+  --color-brand-active: var(--teal-900);
+
+  --color-success: #3f9457;
+  --color-warning: #d99a2b;
+  --color-danger: #d1553f;
+}

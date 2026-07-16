@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/trips/:guid",
+      "destination": "/client/21985a98-1505-4435-8317-6e3c0c3a0205/trips/:guid",
+      "permanent": true
+    }
+  ],
+  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
+}

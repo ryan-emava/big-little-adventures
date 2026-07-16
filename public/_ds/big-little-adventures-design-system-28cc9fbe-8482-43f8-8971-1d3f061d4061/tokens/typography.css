@@ -1,0 +1,36 @@
+/* Big Little Adventures — Type tokens
+   Fonts are Google Fonts substitutes for the brand's real files — see readme.md CAVEATS. */
+:root {
+  --font-display:
+    "Baloo 2", "Fredoka", ui-rounded, sans-serif; /* chunky rounded — "big", DRM/BKD, headings */
+  --font-body:
+    "Nunito Sans", "Nunito", system-ui, sans-serif; /* paragraphs, labels, inputs */
+  --font-script: "Caveat", cursive; /* "little", handwritten accents */
+  --font-mono:
+    "IBM Plex Mono", ui-monospace, monospace; /* barcode / ticket codes */
+
+  --text-xs: 0.75rem; /* 12px — eyebrow labels, fine print */
+  --text-sm: 0.875rem; /* 14px — secondary copy */
+  --text-base: 1rem; /* 16px — body */
+  --text-md: 1.125rem; /* 18px — lead paragraph */
+  --text-lg: 1.375rem; /* 22px — card titles */
+  --text-xl: 1.75rem; /* 28px — section headings */
+  --text-2xl: 2.25rem; /* 36px — flight codes (DRM/BKD) */
+  --text-3xl: 3rem; /* 48px — hero */
+  --text-4xl: 3.75rem; /* 60px — display */
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+  --tracking-widest: 0.14em; /* "BIG LITTLE AIR", "ADVENTURES" caps */
+
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 800;
+}

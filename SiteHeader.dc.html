@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/tokens/fonts.css"
+        />
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/tokens/colors.css"
+        />
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/tokens/typography.css"
+        />
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/tokens/spacing.css"
+        />
+        <link
+          rel="stylesheet"
+          href="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/styles.css"
+        />
+        <script src="_ds/big-little-adventures-design-system-28cc9fbe-8482-43f8-8971-1d3f061d4061/_ds_bundle.js"></script>
+        <style>
+          a {
+            color: var(--coral-500, #e8734a);
+          }
+          a:hover {
+            color: var(--coral-700, #c85a34);
+          }
+          @media (max-width: 980px) {
+            #main-nav {
+              padding-left: 24px !important;
+              padding-right: 24px !important;
+            }
+            #main-nav [data-nav-links] {
+              gap: 20px !important;
+            }
+          }
+        </style>
+      </helmet>
+
+      <div
+        id="main-nav"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 12px;
+          padding: 22px 56px;
+          position: sticky;
+          top: 0;
+          background: var(--cream-100);
+          z-index: 10;
+          font-family: var(--font-body);
+        "
+      >
+        <a href="{{ homeHref }}" style="text-decoration: none">
+          <div
+            style="display: flex; flex-direction: column; align-items: center"
+          >
+            <div style="display: flex; align-items: baseline; gap: 5px">
+              <span
+                style="font-family: var(--font-display); font-weight: 800; line-height: 1; color: var(--color-brand); font-size: {{ bigPx }}px;"
+                >big</span
+              >
+              <span
+                style="font-family: var(--font-script); font-weight: 700; line-height: 1; color: var(--color-accent); font-size: {{ littlePx }}px;"
+                >little</span
+              >
+            </div>
+            <div
+              style="font-family: var(--font-display); font-weight: 600; letter-spacing: 0.22em; color: var(--color-brand); font-size: {{ capsPx }}px; margin-top: 2px;"
+            >
+              ADVENTURES
+            </div>
+          </div>
+        </a>
+        <div
+          data-nav-links
+          style="
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 36px;
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 16px;
+            color: var(--teal-800);
+          "
+        >
+          <sc-for list="{{ links }}" as="l" hint-placeholder-count="3">
+            <a
+              href="{{ l.href }}"
+              style="color: var(--teal-800); text-decoration: none"
+              style-hover="color: var(--coral-500);"
+              >{{ l.label }}</a
+            >
+          </sc-for>
+          <a href="{{ ctaHref }}" style="text-decoration: none">
+            <x-import
+              component-from-global-scope="BigLittleAdventuresDesignSystem_28cc9f.Button"
+              size="sm"
+              hint-size="140px,36px"
+              >{{ ctaLabel }}</x-import
+            >
+          </a>
+        </div>
+      </div>
+    </x-dc>
+    <script
+      type="text/x-dc"
+      data-dc-script
+      data-props='{
+  "$preview": { "width": "1280px", "height": "100px" },
+  "wordmarkSize": { "editor": "int", "default": 26, "min": 18, "max": 44, "step": 1, "unit": "px", "tsType": "number", "section": "Wordmark" },
+  "littleRatio": { "editor": "range", "default": 1, "min": 0.7, "max": 1, "step": 0.05, "tsType": "number", "section": "Wordmark" },
+  "ctaLabel": { "editor": "text", "default": "Plan my trip", "tsType": "string", "section": "Nav" },
+  "ctaHref": { "editor": "text", "default": "#request", "tsType": "string", "section": "Nav" },
+  "homeHref": { "editor": "text", "default": "#", "tsType": "string", "section": "Nav" },
+  "links": { "editor": null, "tsType": "{label: string; href: string}[]" }
+}'
+    >
+      class Component extends DCLogic {
+        renderVals() {
+          const big = this.props.wordmarkSize ?? 26;
+          // "big" must never be smaller than "little"
+          const ratio = Math.min(this.props.littleRatio ?? 1, 1);
+          return {
+            bigPx: big,
+            littlePx: Math.round(big * ratio),
+            capsPx: Math.max(9, Math.round(big * 0.34)),
+            homeHref: this.props.homeHref ?? '#',
+            ctaHref: this.props.ctaHref ?? '#request',
+            ctaLabel: this.props.ctaLabel ?? 'Plan my trip',
+            links: this.props.links ?? [
+              { label: 'Trips', href: '#trips' },
+              { label: 'How it works', href: '#how' },
+              { label: 'About', href: '#about' },
+            ],
+          };
+        }
+      }
+    </script>
+  </body>
+</html>
