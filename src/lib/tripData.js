@@ -1,5 +1,7 @@
 import tripsJson from "../data/trips.json";
 
+export const DEFAULT_CLIENT_GUID = "21985a98-1505-4435-8317-6e3c0c3a0205";
+
 export function flattenTripData(trip) {
   if (!trip) return null;
   const amenities = trip.hotel?.amenities?.join("\n") || "";
@@ -57,13 +59,10 @@ export function flattenTripData(trip) {
     honeymoonGift: trip.hotel?.honeymoon?.description || "",
     addons,
     totalPrice: trip.pricing?.totalPrice || "",
-    totalWithoutFlights: trip.pricing?.totalWithoutFlights || "",
     depositAmount: trip.pricing?.deposit?.amount || "",
     depositDue: trip.pricing?.deposit?.dueDate || "",
     fullAmount: trip.pricing?.fullPayment?.amount || "",
     fullDue: trip.pricing?.fullPayment?.dueDate || "",
-    paidToDate: trip.pricing?.payments?.paidToDate || "",
-    balanceDue: trip.pricing?.payments?.balanceDue || "",
     packagePrice: trip.pricing?.payments?.packagePrice || "",
     adultsLabel: trip.pricing?.breakdown?.adults?.label || "",
     adultsPrice: trip.pricing?.breakdown?.adults?.price || "",
@@ -78,14 +77,15 @@ export function flattenTripData(trip) {
   };
 }
 
-export function getTripData(guid) {
-  const trip = tripsJson[guid];
+export function getTripData(guid, clientId = DEFAULT_CLIENT_GUID) {
+  const trip = tripsJson[clientId]?.[guid];
   return trip ? flattenTripData(trip) : null;
 }
 
-export function getAllTripsData() {
-  return Object.entries(tripsJson).map(([guid, trip]) => ({
+export function getAllTripsData(clientId = DEFAULT_CLIENT_GUID) {
+  return Object.entries(tripsJson[clientId] || {}).map(([guid, trip]) => ({
     guid,
     ...flattenTripData(trip),
   }));
 }
+

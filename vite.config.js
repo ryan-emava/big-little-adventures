@@ -12,12 +12,28 @@ function devApi(env) {
         "AIRTABLE_TOKEN",
         "AIRTABLE_BASE_ID",
         "AIRTABLE_TABLE",
+        "TRKIT_SECRET_KEY",
+        "TRKIT_PUBLIC_KEY",
+        "TRIPKIT_SECRET_KEY",
+        "TRIPKIT_PUBLIC_KEY",
       ]) {
         if (env[key]) process.env[key] = env[key];
       }
       const { default: handler } = await import("./api/quotes.js");
+      const { default: trkitRegisterHandler } = await import(
+        "./api/trkit-register.js"
+      );
       server.middlewares.use("/api/quotes", (req, res) => {
         Promise.resolve(handler(req, res)).catch((err) => {
+          res.statusCode = 500;
+          res.setHeader("content-type", "application/json");
+          res.end(
+            JSON.stringify({ error: String((err && err.message) || err) }),
+          );
+        });
+      });
+      server.middlewares.use("/api/trkit-register", (req, res) => {
+        Promise.resolve(trkitRegisterHandler(req, res)).catch((err) => {
           res.statusCode = 500;
           res.setHeader("content-type", "application/json");
           res.end(

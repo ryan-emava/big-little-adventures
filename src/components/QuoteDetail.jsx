@@ -1,24 +1,35 @@
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import SiteHeader from './SiteHeader.jsx'
 import SiteFooter from './SiteFooter.jsx'
+import { toDisplayTrip } from '../lib/tripFormat.js'
 
-export default function QuoteDetail({ trip }) {
+export default function QuoteDetail({ trip, clientId, tripGuid }) {
   if (!trip) {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--cream-100)', padding: '64px 24px' }}>
-        <div style={{ maxWidth: 760, margin: '0 auto', background: 'var(--white)', borderRadius: 18, padding: '28px 24px' }}>
+        <div style={{ maxWidth: 760, margin: '0 auto', background: 'var(--white)', borderRadius: 18, padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
           <h1 style={{ margin: 0, fontFamily: 'var(--font-display)', color: 'var(--teal-800)' }}>Trip not found</h1>
+          {clientId && (
+            <Link
+              to={`/client/${clientId}/trips`}
+              style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 14, color: 'var(--coral-500)', textDecoration: 'none' }}
+            >
+              ← All trips
+            </Link>
+          )}
         </div>
       </div>
     )
   }
 
-  const d = trip
+  const d = toDisplayTrip(trip)
   const overview = d.overview || {}
   const flights = d.flights || {}
   const hotel = d.hotel || {}
   const pricing = d.pricing || {}
   const travelers = d.travelers || {}
-  const contact = d.contact || {}
+  // ...existing code...
   const addons = d.addons || []
 
   const amenities = hotel.amenities || []
@@ -36,11 +47,116 @@ export default function QuoteDetail({ trip }) {
     return { title: (title || '').trim(), desc: rest.join('|').trim() }
   })
 
+  useEffect(() => {
+    if (!tripGuid || !overview.destination || !overview.preparedByLine) return
+
+    const scriptId = `trkit-sdk-${tripGuid}`
+    const storageKey = `trkit:proposal:${tripGuid}`
+    const existingScript = document.getElementById(scriptId)
+
+    const getClientName = () => trip.client || 'Client'
+
+    const getOrigin = () => {
+      try {
+        return window.top?.location?.origin || window.location.origin
+      } catch {
+        return window.location.origin
+      }
+    }
+
+    let isCancelled = false
+
+    const registerAndLoad = async () => {
+      try {
+        const stored = (() => {
+          try {
+            return JSON.parse(window.sessionStorage?.getItem(storageKey) || 'null')
+          } catch {
+            return null
+          }
+        })()
+
+        if (!stored?.registered) {
+          const response = await fetch('/api/trkit-register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              externalId: tripGuid,
+              clientName: getClientName(),
+              destination: overview.destination,
+              canonicalUrl: `${getOrigin()}/client/${clientId}/trips/${tripGuid}`,
+            }),
+          })
+
+          if (!response.ok) {
+            console.warn(`trkit registration failed (${response.status})`)
+            return
+          }
+
+          const data = await response.json()
+          window.sessionStorage?.setItem(
+            storageKey,
+            JSON.stringify({ registered: true, publicKey: data.publicKey })
+          )
+
+          if (isCancelled || existingScript || document.getElementById(scriptId)) return
+
+          const script = document.createElement('script')
+          script.id = scriptId
+          script.src = 'https://trkit.lovable.app/sdk/v1.js'
+          script.async = true
+          script.dataset.publicKey = data.publicKey
+          script.dataset.proposalId = tripGuid
+          document.body.appendChild(script)
+          return
+        }
+
+        if (!existingScript && !document.getElementById(scriptId)) {
+          const publicKey = stored?.publicKey
+          if (!publicKey) return
+          const script = document.createElement('script')
+          script.id = scriptId
+          script.src = 'https://trkit.lovable.app/sdk/v1.js'
+          script.async = true
+          script.dataset.publicKey = publicKey
+          script.dataset.proposalId = tripGuid
+          document.body.appendChild(script)
+        }
+      } catch (error) {
+        console.warn('Trip proposal registration failed:', error)
+      }
+    }
+
+    registerAndLoad()
+
+    return () => {
+      isCancelled = true
+    }
+  }, [clientId, overview.destination, overview.preparedByLine, tripGuid])
+
   return (
     <div style={{ background: 'var(--cream-100)', minHeight: '100vh', overflowX: 'clip' }}>
       <SiteHeader homeHref="/" ctaHref="/#request" links={[]} />
 
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '48px 24px 72px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+
+        {clientId && (
+          <Link
+            to={`/client/${clientId}/trips`}
+            style={{
+              alignSelf: 'flex-start',
+              fontFamily: 'var(--font-display)',
+              fontWeight: 600,
+              fontSize: 14,
+              color: 'var(--coral-500)',
+              textDecoration: 'none',
+            }}
+          >
+            ← All trips
+          </Link>
+        )}
 
         {/* ===== HEADER ===== */}
         <div style={{
@@ -83,7 +199,7 @@ export default function QuoteDetail({ trip }) {
 
             {/* Right: price */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10, zIndex: 1 }}>
-              <div style={{ textAlign: 'right' }}>
+              <div style={{ textAlign: 'right', marginRight: 24 }}>
                 <div style={{ fontSize: 11, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-text-muted)' }}>TOTAL PRICE</div>
                 <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 34, color: 'var(--color-accent)', lineHeight: 1.05 }}>
                   {pricing.totalPrice || '$0.00'}
@@ -428,51 +544,6 @@ export default function QuoteDetail({ trip }) {
             </div>
           )}
         </div>
-
-        {/* ===== CTA ===== */}
-        <div style={{ background: 'var(--color-brand)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-card)', padding: '36px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-          <div>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 26, color: '#fff', lineHeight: 1.1 }}>
-              Ready to make it real?
-            </div>
-            <div style={{ fontFamily: 'var(--font-script)', fontSize: 24, color: 'var(--coral-400)', marginTop: 2 }}>
-              reserve your seats before they fly away
-            </div>
-            {pricing.deposit?.dueDate && (
-              <div style={{ fontSize: 14, color: 'var(--teal-100)', marginTop: 8 }}>
-                Prices may change until payment is received. Lock in the deposit {pricing.deposit.dueDate}.
-              </div>
-            )}
-          </div>
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <button style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 600,
-              fontSize: 16,
-              padding: '16px 32px',
-              borderRadius: 'var(--radius-pill)',
-              border: 'none',
-              background: 'var(--color-accent)',
-              color: '#fff',
-              cursor: 'pointer',
-            }}>
-              Reserve your seats
-            </button>
-            <button style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 600,
-              fontSize: 16,
-              padding: '16px 32px',
-              borderRadius: 'var(--radius-pill)',
-              border: '2px solid rgba(255,255,255,0.5)',
-              background: 'transparent',
-              color: '#fff',
-              cursor: 'pointer',
-            }}>
-              Ask {contact.advisor} a question
-            </button>
-          </div>
-        </div>
       </div>
 
       <SiteFooter />
@@ -571,26 +642,16 @@ function FlightTicket({ flight, label }) {
         <div style={{ fontSize: 11, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-text-muted)' }}>
           SEGMENTS · MAIN CABIN COACH (Q)
         </div>
-        {flight.segment1 && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {(flight.segments || []).map((seg, i) => (
+          <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 15, color: 'var(--color-brand)' }}>
-              {flight.segment1.flight}
+              {seg.flight}
             </div>
             <div style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
-              {flight.segment1.detail}
+              {seg.detail}
             </div>
           </div>
-        )}
-        {flight.segment2 && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 15, color: 'var(--color-brand)' }}>
-              {flight.segment2.flight}
-            </div>
-            <div style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>
-              {flight.segment2.detail}
-            </div>
-          </div>
-        )}
+        ))}
         {flight.barcode && (
           <div style={{ marginTop: 'auto', paddingTop: 8, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', color: 'var(--color-brand)', textAlign: 'center' }}>
             {flight.barcode}
@@ -600,6 +661,8 @@ function FlightTicket({ flight, label }) {
     </div>
   )
 }
+
+
 
 
 

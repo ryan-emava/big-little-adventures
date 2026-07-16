@@ -8,6 +8,10 @@ import SiteHeader from "./SiteHeader.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { useQuotes } from "../lib/useQuotes.js";
 import sunImg from "../assets/sun.png";
+import heroJpg from "../assets/hero.jpg";
+import heroWebp from "../assets/hero.webp";
+import katieJpg from "../assets/katie.jpg";
+import katieWebp from "../assets/katie.webp";
 
 const services = [
   {
@@ -95,7 +99,7 @@ const labelStyle = {
 export default function Home({
   wordmarkSize = 26,
   littleRatio = 1,
-  showSunburst = true,
+  showSunburst = false,
 }) {
   const [sent, setSent] = useState(false);
   const { quotes: apiQuotes } = useQuotes();
@@ -248,9 +252,12 @@ export default function Home({
             }}
           >
             <ImageSlot
+              src={heroJpg}
+              webp={heroWebp}
+              alt="A family on vacation"
               shape="rounded"
               radius={22}
-              placeholder="Hero photo — family on vacation"
+              priority
             />
           </div>
         </div>
@@ -489,7 +496,12 @@ export default function Home({
           }}
         >
           <div style={{ width: 280, height: 280 }}>
-            <ImageSlot shape="circle" placeholder="Katie's photo" />
+            <ImageSlot
+              src={katieJpg}
+              webp={katieWebp}
+              alt="Katie Truran"
+              shape="circle"
+            />
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <span
@@ -776,7 +788,7 @@ export default function Home({
                     <label style={labelStyle}>YOUR NAME</label>
                     <input
                       type="text"
-                      placeholder="Jamie Parker"
+                      placeholder="Juana Getaway"
                       style={inputStyle}
                     />
                   </div>

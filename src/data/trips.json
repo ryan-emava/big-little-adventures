@@ -1,74 +1,50 @@
 {
   "21985a98-1505-4435-8317-6e3c0c3a0205": {
     "d6a328ca-5cd7-4264-ac03-3b72cbe1e7fd": {
+      "client": "Steph Perz",
+      "advisor": "Kaitlyn Truran",
+      "supplier": "Apple Vacations",
+      "quotedDate": "2026-07-15",
       "overview": {
         "headline": "Riu Santa Fe (for 3)",
         "subhead": "five sunny days on the beach",
-        "destination": "Cabo San Lucas · Beach",
-        "preparedByLine": "Prepared for Steph Perz by Kaitlyn Truran, Big Little Adventures · Quoted July 15, 2026 · An Apple Vacations getaway"
+        "destination": "Cabo San Lucas",
+        "category": "Beach"
       },
-      "travelers": {
-        "count": "2 adults · 1 child",
-        "sleeps": "5 sleeps",
-        "dateRange": "Oct 4 – Oct 9, 2026"
-      },
+      "travelers": { "adults": 2, "children": 1 },
       "flights": {
         "airline": "American Airlines",
+        "code": "AA",
         "departure": {
-          "date": "SUN · OCT 4",
-          "from": {
-            "code": "DFW",
-            "city": "Dallas/Fort Worth"
-          },
-          "to": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "departTime": "9:00 AM",
-          "arriveTime": "9:46 AM",
-          "stops": "Nonstop",
           "duration": "2h 46m",
-          "segment1": {
-            "flight": "American Airlines #1304",
-            "detail": "DFW 9:00 AM → SJD 9:46 AM · Sun, Oct 4"
-          },
-          "segment2": null,
-          "barcode": "AA · DFW→SJD · 04OCT26"
+          "segments": [
+            {
+              "number": "1304",
+              "from": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "to": { "code": "SJD", "city": "Los Cabos" },
+              "depart": "2026-10-04T09:00",
+              "arrive": "2026-10-04T09:46"
+            }
+          ]
         },
         "return": {
-          "date": "FRI · OCT 9",
-          "from": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "to": {
-            "code": "DFW",
-            "city": "Dallas/Fort Worth"
-          },
-          "departTime": "3:22 PM",
-          "arriveTime": "8:15 PM",
-          "stops": "Nonstop",
           "duration": "2h 53m",
-          "segment1": {
-            "flight": "American Airlines #2372",
-            "detail": "SJD 3:22 PM → DFW 8:15 PM · Fri, Oct 9"
-          },
-          "segment2": null,
-          "barcode": "AA · SJD→DFW · 09OCT26"
+          "segments": [
+            {
+              "number": "2372",
+              "from": { "code": "SJD", "city": "Los Cabos" },
+              "to": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "depart": "2026-10-09T15:22",
+              "arrive": "2026-10-09T20:15"
+            }
+          ]
         }
       },
       "hotel": {
         "name": "Riu Santa Fe — All Inclusive",
         "tagline": "beachfront Cabo getaway",
-        "rating": "★ 4.5 RATING",
-        "checkin": "Sun, Oct 4, 2026",
-        "checkout": "Fri, Oct 9, 2026",
-        "nights": "5",
-        "room": {
-          "occupancy": "ROOM 1 · 2 ADULTS · 1 CHILD",
-          "type": "Gardenview",
-          "note": "All-inclusive"
-        },
+        "rating": 4.5,
+        "room": { "type": "Gardenview", "note": "All-inclusive" },
         "amenities": [
           "All meals, snacks, and domestic and international alcoholic and non-alcoholic beverages",
           "24-hour snacks and drinks",
@@ -80,129 +56,69 @@
           "RIU Land kids club for ages 4-7 and 8-12",
           "Up to $750 in resort-credit coupons for selected spa, scuba, wedding, photography, car-rental, dining, and retail services"
         ],
-        "honeymoon": {
-          "title": "Honeymoon inclusions",
-          "description": "Honeymoon guests receive a surprise welcome gift, a small bottle of sparkling wine, a king bed, late checkout, and an upgrade to the next available room category, all subject to availability. A $35 spa credit applies to the specified Senses service for two. Enter \"HONEYMOON\" in the Special Service Request. Proof of marriage issued within 90 days is required at check-in."
-        },
         "note": "All guests must wear an all-inclusive wristband. An environmental sanitation tax of MXN 83 per room per night is collected by the hotel and may change. Promotions and inclusions are subject to availability and restrictions."
       },
       "addons": [
-        {
-          "title": "Roundtrip transfers",
-          "description": "Transportation to & from your hotel · Oct 4 · Included with hotel"
-        },
-        {
-          "title": "Travel ID checklist",
-          "description": "Identification required for travel · Oct 4 · Included with hotel"
-        }
+        { "title": "Roundtrip transfers", "description": "Transportation to & from your hotel · Oct 4 · Included with hotel" },
+        { "title": "Travel ID checklist", "description": "Identification required for travel · Oct 4 · Included with hotel" }
       ],
       "pricing": {
-        "totalPrice": "$3,848.90",
-        "totalWithoutFlights": null,
-        "deposit": {
-          "amount": "$750.00",
-          "dueDate": "by July 18, 2026"
-        },
-        "fullPayment": {
-          "amount": "$3,823.09",
-          "dueDate": "by Aug 20, 2026"
-        },
-        "payments": {
-          "paidToDate": "$0.00",
-          "balanceDue": "$3,823.09",
-          "packagePrice": "$3,873.80"
-        },
-        "breakdown": {
-          "adults": {
-            "label": "Adult base price (×2)",
-            "price": "$1,809.97"
-          },
-          "child": {
-            "label": "Child / junior base price (×1)",
-            "price": "$253.87"
-          },
-          "promotion": {
-            "label": "Promotion (JULY26)",
-            "amount": "−$50.71"
-          },
-          "optionsAmount": "$0.00",
-          "payInDestination": "$25.81"
-        }
-      },
-      "contact": {
-        "advisor": "Kaitlyn",
-        "advisorFull": "Kaitlyn Truran"
+        "totalPrice": 3848.9,
+        "deposit": { "amount": 750, "dueDate": "2026-07-18" },
+        "fullPaymentDueDate": "2026-08-20",
+        "packagePrice": 3873.8,
+        "adultBase": 1809.97,
+        "childBase": 253.87,
+        "promotion": { "code": "JULY26", "amount": -50.71 },
+        "options": 0,
+        "payInDestination": 25.81
       }
     },
     "07cb2529-dd59-4c45-b419-682388a8f5e5": {
+      "client": "Steph Perz",
+      "advisor": "Kaitlyn Truran",
+      "supplier": "Apple Vacations",
+      "quotedDate": "2026-07-15",
       "overview": {
         "headline": "Riu Santa Fe (for 2)",
         "subhead": "five sunny days on the beach",
-        "destination": "Cabo San Lucas · Beach",
-        "preparedByLine": "Prepared for Steph Perz by Kaitlyn Truran, Big Little Adventures · Quoted July 15, 2026 · An Apple Vacations getaway"
+        "destination": "Cabo San Lucas",
+        "category": "Beach"
       },
-      "travelers": {
-        "count": "2 adults",
-        "sleeps": "5 sleeps",
-        "dateRange": "Oct 4 – Oct 9, 2026"
-      },
+      "travelers": { "adults": 2, "children": 0 },
       "flights": {
         "airline": "American Airlines",
+        "code": "AA",
         "departure": {
-          "date": "SUN · OCT 4",
-          "from": {
-            "code": "DFW",
-            "city": "Dallas/Fort Worth"
-          },
-          "to": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "departTime": "9:00 AM",
-          "arriveTime": "9:46 AM",
-          "stops": "Nonstop",
           "duration": "2h 46m",
-          "segment1": {
-            "flight": "American Airlines #1304",
-            "detail": "DFW 9:00 AM → SJD 9:46 AM · Sun, Oct 4"
-          },
-          "segment2": null,
-          "barcode": "AA · DFW→SJD · 04OCT26"
+          "segments": [
+            {
+              "number": "1304",
+              "from": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "to": { "code": "SJD", "city": "Los Cabos" },
+              "depart": "2026-10-04T09:00",
+              "arrive": "2026-10-04T09:46"
+            }
+          ]
         },
         "return": {
-          "date": "FRI · OCT 9",
-          "from": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "to": {
-            "code": "DFW",
-            "city": "Dallas/Fort Worth"
-          },
-          "departTime": "3:22 PM",
-          "arriveTime": "8:15 PM",
-          "stops": "Nonstop",
           "duration": "2h 53m",
-          "segment1": {
-            "flight": "American Airlines #2372",
-            "detail": "SJD 3:22 PM → DFW 8:15 PM · Fri, Oct 9"
-          },
-          "segment2": null,
-          "barcode": "AA · SJD→DFW · 09OCT26"
+          "segments": [
+            {
+              "number": "2372",
+              "from": { "code": "SJD", "city": "Los Cabos" },
+              "to": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "depart": "2026-10-09T15:22",
+              "arrive": "2026-10-09T20:15"
+            }
+          ]
         }
       },
       "hotel": {
         "name": "Riu Santa Fe — All Inclusive",
         "tagline": "beachfront Cabo getaway",
-        "rating": "★ 4.5 RATING",
-        "checkin": "Sun, Oct 4, 2026",
-        "checkout": "Fri, Oct 9, 2026",
-        "nights": "5",
-        "room": {
-          "occupancy": "ROOM 1 · 2 ADULTS",
-          "type": "Gardenview",
-          "note": "All-inclusive"
-        },
+        "rating": 4.5,
+        "room": { "type": "Gardenview", "note": "All-inclusive" },
         "amenities": [
           "All meals, snacks, and domestic and international alcoholic and non-alcoholic beverages",
           "24-hour snacks and drinks",
@@ -214,257 +130,68 @@
           "RIU Land kids club for ages 4-7 and 8-12",
           "Up to $750 in resort-credit coupons for selected spa, scuba, wedding, photography, car-rental, dining, and retail services"
         ],
-        "honeymoon": {
-          "title": "Honeymoon inclusions",
-          "description": "Honeymoon guests receive a surprise welcome gift, a small bottle of sparkling wine, a king bed, late checkout, and an upgrade to the next available room category, all subject to availability. A $35 spa credit applies to the specified Senses service for two. Enter \"HONEYMOON\" in the Special Service Request. Proof of marriage issued within 90 days is required at check-in."
-        },
         "note": "All guests must wear an all-inclusive wristband. An environmental sanitation tax of MXN 83 per room per night is collected by the hotel and may change. Promotions and inclusions are subject to availability and restrictions."
       },
       "addons": [
-        {
-          "title": "Roundtrip transfers",
-          "description": "Transportation to & from your hotel · Oct 4 · Included with hotel"
-        },
-        {
-          "title": "Travel ID checklist",
-          "description": "Identification required for travel · Oct 4 · Included with hotel"
-        }
+        { "title": "Roundtrip transfers", "description": "Transportation to & from your hotel · Oct 4 · Included with hotel" },
+        { "title": "Travel ID checklist", "description": "Identification required for travel · Oct 4 · Included with hotel" }
       ],
       "pricing": {
-        "totalPrice": "$2,736.52",
-        "totalWithoutFlights": null,
-        "deposit": {
-          "amount": "$500.00",
-          "dueDate": "by July 18, 2026"
-        },
-        "fullPayment": {
-          "amount": "$2,710.71",
-          "dueDate": "by Aug 20, 2026"
-        },
-        "payments": {
-          "paidToDate": "$0.00",
-          "balanceDue": "$2,710.71",
-          "packagePrice": "$2,751.27"
-        },
-        "breakdown": {
-          "adults": {
-            "label": "Adult base price (×2)",
-            "price": "$1,375.64"
-          },
-          "child": null,
-          "promotion": {
-            "label": "Promotion (JULY26)",
-            "amount": "−$40.56"
-          },
-          "optionsAmount": "$0.00",
-          "payInDestination": "$25.81"
-        }
-      },
-      "contact": {
-        "advisor": "Kaitlyn",
-        "advisorFull": "Kaitlyn Truran"
-      }
-    },
-    "678d39b7-f16f-406a-af76-b8f19d8cefc4": {
-      "overview": {
-        "headline": "Riu Palace (for 2)",
-        "subhead": "five sunny days on the beach",
-        "destination": "Cabo San Lucas · Beach",
-        "preparedByLine": "Prepared for Steph Perz by Kaitlyn Truran, Big Little Adventures · Quoted July 15, 2026 · An Apple Vacations getaway"
-      },
-      "travelers": {
-        "count": "2 adults",
-        "sleeps": "5 sleeps",
-        "dateRange": "Oct 4 – Oct 9, 2026"
-      },
-      "flights": {
-        "airline": "American Airlines",
-        "departure": {
-          "date": "SUN · OCT 4",
-          "from": {
-            "code": "DFW",
-            "city": "Dallas/Fort Worth"
-          },
-          "to": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "departTime": "9:00 AM",
-          "arriveTime": "9:46 AM",
-          "stops": "Nonstop",
-          "duration": "2h 46m",
-          "segment1": {
-            "flight": "American Airlines #1304",
-            "detail": "DFW 9:00 AM → SJD 9:46 AM · Sun, Oct 4"
-          },
-          "segment2": null,
-          "barcode": "AA · DFW→SJD · 04OCT26"
-        },
-        "return": {
-          "date": "FRI · OCT 9",
-          "from": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "to": {
-            "code": "DFW",
-            "city": "Dallas/Fort Worth"
-          },
-          "departTime": "3:22 PM",
-          "arriveTime": "8:15 PM",
-          "stops": "Nonstop",
-          "duration": "2h 53m",
-          "segment1": {
-            "flight": "American Airlines #2372",
-            "detail": "SJD 3:22 PM → DFW 8:15 PM · Fri, Oct 9"
-          },
-          "segment2": null,
-          "barcode": "AA · SJD→DFW · 09OCT26"
-        }
-      },
-      "hotel": {
-        "name": "Riu Palace Cabo San Lucas — All Inclusive",
-        "tagline": "beachfront Cabo getaway",
-        "rating": "★ 5.0 RATING",
-        "checkin": "Sun, Oct 4, 2026",
-        "checkout": "Fri, Oct 9, 2026",
-        "nights": "5",
-        "room": {
-          "occupancy": "ROOM 1 · 2 ADULTS",
-          "type": "Junior Suite Oceanview",
-          "note": "All-inclusive"
-        },
-        "amenities": [
-          "All meals, snacks, and local and imported alcoholic and non-alcoholic beverages",
-          "24-hour snacks, drinks, and room service",
-          "Regularly refilled minibar, in-room liquor dispenser, safe, and turndown service",
-          "Tennis, RiuFit, pickleball, and one scuba tryout in the pool",
-          "Gym, pool drink service, and complimentary Wi-Fi throughout the hotel",
-          "Daytime entertainment, live music, shows, and Riu entertainment",
-          "Access to Splash Water World, Riu Pool Party, and Pacha Discotheque at Riu Santa Fe",
-          "Exchange privileges for bars, lunch, and snacks at Riu Santa Fe",
-          "Up to $750 in resort-credit coupons for selected spa, scuba, wedding, photography, car-rental, dining, and retail services"
-        ],
-        "honeymoon": {
-          "title": "Honeymoon inclusions",
-          "description": "Honeymoon guests receive a surprise welcome gift, a small bottle of sparkling wine, a king bed, late checkout, and an upgrade to the next available room category, all subject to availability. A $35 spa credit applies to the specified Senses service for two. Enter \"HONEYMOON\" in the Special Service Request. Proof of marriage issued within 90 days is required at check-in."
-        },
-        "note": "All guests must wear an all-inclusive wristband. An environmental sanitation tax of MXN 83 per room per night is collected by the hotel and may change. Promotions and inclusions are subject to availability and restrictions."
-      },
-      "addons": [
-        {
-          "title": "Roundtrip transfers",
-          "description": "Transportation to & from your hotel · Oct 4 · Included with hotel"
-        },
-        {
-          "title": "Travel ID checklist",
-          "description": "Identification required for travel · Oct 4 · Included with hotel"
-        }
-      ],
-      "pricing": {
-        "totalPrice": "$3,088.38",
-        "totalWithoutFlights": null,
-        "deposit": {
-          "amount": "$500.00",
-          "dueDate": "by July 18, 2026"
-        },
-        "fullPayment": {
-          "amount": "$3,062.57",
-          "dueDate": "by Aug 20, 2026"
-        },
-        "payments": {
-          "paidToDate": "$0.00",
-          "balanceDue": "$3,062.57",
-          "packagePrice": "$3,117.79"
-        },
-        "breakdown": {
-          "adults": {
-            "label": "Adult base price (×2)",
-            "price": "$1,558.90"
-          },
-          "child": null,
-          "promotion": {
-            "label": "Promotion (JULY26)",
-            "amount": "−$55.22"
-          },
-          "optionsAmount": "$0.00",
-          "payInDestination": "$25.81"
-        }
-      },
-      "contact": {
-        "advisor": "Kaitlyn",
-        "advisorFull": "Kaitlyn Truran"
+        "totalPrice": 2736.52,
+        "deposit": { "amount": 500, "dueDate": "2026-07-18" },
+        "fullPaymentDueDate": "2026-08-20",
+        "packagePrice": 2751.27,
+        "adultBase": 1375.64,
+        "promotion": { "code": "JULY26", "amount": -40.56 },
+        "options": 0,
+        "payInDestination": 25.81
       }
     },
     "517ec52c-9622-411d-a5d9-ddcd05e8b019": {
+      "client": "Steph Perz",
+      "advisor": "Kaitlyn Truran",
+      "supplier": "Apple Vacations",
+      "quotedDate": "2026-07-15",
       "overview": {
         "headline": "Riu Palace (for 3)",
         "subhead": "five sunny days on the beach",
-        "destination": "Cabo San Lucas · Beach",
-        "preparedByLine": "Prepared for Steph Perz by Kaitlyn Truran, Big Little Adventures · Quoted July 15, 2026 · An Apple Vacations getaway"
+        "destination": "Cabo San Lucas",
+        "category": "Beach"
       },
-      "travelers": {
-        "count": "2 adults · 1 child",
-        "sleeps": "5 sleeps",
-        "dateRange": "Oct 4 – Oct 9, 2026"
-      },
+      "travelers": { "adults": 2, "children": 1 },
       "flights": {
         "airline": "American Airlines",
+        "code": "AA",
         "departure": {
-          "date": "SUN · OCT 4",
-          "from": {
-            "code": "DFW",
-            "city": "Dallas/Fort Worth"
-          },
-          "to": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "departTime": "9:00 AM",
-          "arriveTime": "9:46 AM",
-          "stops": "Nonstop",
           "duration": "2h 46m",
-          "segment1": {
-            "flight": "American Airlines #1304",
-            "detail": "DFW 9:00 AM → SJD 9:46 AM · Sun, Oct 4"
-          },
-          "segment2": null,
-          "barcode": "AA · DFW→SJD · 04OCT26"
+          "segments": [
+            {
+              "number": "1304",
+              "from": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "to": { "code": "SJD", "city": "Los Cabos" },
+              "depart": "2026-10-04T09:00",
+              "arrive": "2026-10-04T09:46"
+            }
+          ]
         },
         "return": {
-          "date": "FRI · OCT 9",
-          "from": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "to": {
-            "code": "DFW",
-            "city": "Dallas/Fort Worth"
-          },
-          "departTime": "3:22 PM",
-          "arriveTime": "8:15 PM",
-          "stops": "Nonstop",
           "duration": "2h 53m",
-          "segment1": {
-            "flight": "American Airlines #2372",
-            "detail": "SJD 3:22 PM → DFW 8:15 PM · Fri, Oct 9"
-          },
-          "segment2": null,
-          "barcode": "AA · SJD→DFW · 09OCT26"
+          "segments": [
+            {
+              "number": "2372",
+              "from": { "code": "SJD", "city": "Los Cabos" },
+              "to": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "depart": "2026-10-09T15:22",
+              "arrive": "2026-10-09T20:15"
+            }
+          ]
         }
       },
       "hotel": {
         "name": "Riu Palace Cabo San Lucas — All Inclusive",
         "tagline": "beachfront Cabo getaway",
-        "rating": "★ 5.0 RATING",
-        "checkin": "Sun, Oct 4, 2026",
-        "checkout": "Fri, Oct 9, 2026",
-        "nights": "5",
-        "room": {
-          "occupancy": "ROOM 1 · 2 ADULTS · 1 CHILD",
-          "type": "Junior Suite Oceanview",
-          "note": "All-inclusive"
-        },
+        "rating": 5,
+        "room": { "type": "Junior Suite Oceanview", "note": "All-inclusive" },
         "amenities": [
           "All meals, snacks, and local and imported alcoholic and non-alcoholic beverages",
           "24-hour snacks, drinks, and room service",
@@ -476,135 +203,142 @@
           "Exchange privileges for bars, lunch, and snacks at Riu Santa Fe",
           "Up to $750 in resort-credit coupons for selected spa, scuba, wedding, photography, car-rental, dining, and retail services"
         ],
-        "honeymoon": {
-          "title": "Honeymoon inclusions",
-          "description": "Honeymoon guests receive a surprise welcome gift, a small bottle of sparkling wine, a king bed, late checkout, and an upgrade to the next available room category, all subject to availability. A $35 spa credit applies to the specified Senses service for two. Enter \"HONEYMOON\" in the Special Service Request. Proof of marriage issued within 90 days is required at check-in."
-        },
         "note": "All guests must wear an all-inclusive wristband. An environmental sanitation tax of MXN 83 per room per night is collected by the hotel and may change. Promotions and inclusions are subject to availability and restrictions."
       },
       "addons": [
-        {
-          "title": "Roundtrip transfers",
-          "description": "Transportation to & from your hotel · Oct 4 · Included with hotel"
-        },
-        {
-          "title": "Travel ID checklist",
-          "description": "Identification required for travel · Oct 4 · Included with hotel"
-        }
+        { "title": "Roundtrip transfers", "description": "Transportation to & from your hotel · Oct 4 · Included with hotel" },
+        { "title": "Travel ID checklist", "description": "Identification required for travel · Oct 4 · Included with hotel" }
       ],
       "pricing": {
-        "totalPrice": "$4,306.80",
-        "totalWithoutFlights": null,
-        "deposit": {
-          "amount": "$750.00",
-          "dueDate": "by July 18, 2026"
+        "totalPrice": 4306.8,
+        "deposit": { "amount": 750, "dueDate": "2026-07-18" },
+        "fullPaymentDueDate": "2026-08-20",
+        "packagePrice": 4350.78,
+        "adultBase": 1993.23,
+        "childBase": 364.33,
+        "promotion": { "code": "JULY26", "amount": -69.79 },
+        "options": 0,
+        "payInDestination": 25.81
+      }
+    },
+    "678d39b7-f16f-406a-af76-b8f19d8cefc4": {
+      "client": "Steph Perz",
+      "advisor": "Kaitlyn Truran",
+      "supplier": "Apple Vacations",
+      "quotedDate": "2026-07-15",
+      "overview": {
+        "headline": "Riu Palace (for 2)",
+        "subhead": "five sunny days on the beach",
+        "destination": "Cabo San Lucas",
+        "category": "Beach"
+      },
+      "travelers": { "adults": 2, "children": 0 },
+      "flights": {
+        "airline": "American Airlines",
+        "code": "AA",
+        "departure": {
+          "duration": "2h 46m",
+          "segments": [
+            {
+              "number": "1304",
+              "from": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "to": { "code": "SJD", "city": "Los Cabos" },
+              "depart": "2026-10-04T09:00",
+              "arrive": "2026-10-04T09:46"
+            }
+          ]
         },
-        "fullPayment": {
-          "amount": "$4,280.99",
-          "dueDate": "by Aug 20, 2026"
-        },
-        "payments": {
-          "paidToDate": "$0.00",
-          "balanceDue": "$4,280.99",
-          "packagePrice": "$4,350.78"
-        },
-        "breakdown": {
-          "adults": {
-            "label": "Adult base price (×2)",
-            "price": "$1,993.23"
-          },
-          "child": {
-            "label": "Child / junior base price (×1)",
-            "price": "$364.33"
-          },
-          "promotion": {
-            "label": "Promotion (JULY26)",
-            "amount": "−$69.79"
-          },
-          "optionsAmount": "$0.00",
-          "payInDestination": "$25.81"
+        "return": {
+          "duration": "2h 53m",
+          "segments": [
+            {
+              "number": "2372",
+              "from": { "code": "SJD", "city": "Los Cabos" },
+              "to": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "depart": "2026-10-09T15:22",
+              "arrive": "2026-10-09T20:15"
+            }
+          ]
         }
       },
-      "contact": {
-        "advisor": "Kaitlyn",
-        "advisorFull": "Kaitlyn Truran"
+      "hotel": {
+        "name": "Riu Palace Cabo San Lucas — All Inclusive",
+        "tagline": "beachfront Cabo getaway",
+        "rating": 5,
+        "room": { "type": "Junior Suite Oceanview", "note": "All-inclusive" },
+        "amenities": [
+          "All meals, snacks, and local and imported alcoholic and non-alcoholic beverages",
+          "24-hour snacks, drinks, and room service",
+          "Regularly refilled minibar, in-room liquor dispenser, safe, and turndown service",
+          "Tennis, RiuFit, pickleball, and one scuba tryout in the pool",
+          "Gym, pool drink service, and complimentary Wi-Fi throughout the hotel",
+          "Daytime entertainment, live music, shows, and Riu entertainment",
+          "Access to Splash Water World, Riu Pool Party, and Pacha Discotheque at Riu Santa Fe",
+          "Exchange privileges for bars, lunch, and snacks at Riu Santa Fe",
+          "Up to $750 in resort-credit coupons for selected spa, scuba, wedding, photography, car-rental, dining, and retail services"
+        ],
+        "note": "All guests must wear an all-inclusive wristband. An environmental sanitation tax of MXN 83 per room per night is collected by the hotel and may change. Promotions and inclusions are subject to availability and restrictions."
+      },
+      "addons": [
+        { "title": "Roundtrip transfers", "description": "Transportation to & from your hotel · Oct 4 · Included with hotel" },
+        { "title": "Travel ID checklist", "description": "Identification required for travel · Oct 4 · Included with hotel" }
+      ],
+      "pricing": {
+        "totalPrice": 3088.38,
+        "deposit": { "amount": 500, "dueDate": "2026-07-18" },
+        "fullPaymentDueDate": "2026-08-20",
+        "packagePrice": 3117.79,
+        "adultBase": 1558.9,
+        "promotion": { "code": "JULY26", "amount": -55.22 },
+        "options": 0,
+        "payInDestination": 25.81
       }
     },
     "74b53f37-9b69-4ce9-9f9b-3bbfb8de3d2e": {
+      "client": "Steph Perz",
+      "advisor": "Kaitlyn Truran",
+      "supplier": "Apple Vacations",
+      "quotedDate": "2026-07-14",
       "overview": {
-        "headline": "Los Cabos, here you come!",
+        "headline": "Dreams Los Cabos Suites Golf Resort & Spa (for 3)",
         "subhead": "five sun-soaked days on the Baja coast",
-        "destination": "Los Cabos · Beach",
-        "preparedByLine": "Prepared for Steph Perz by Kaitlyn Truran, Big Little Adventures · Quoted July 14, 2026 · An Apple Vacations getaway"
+        "destination": "Los Cabos",
+        "category": "Beach"
       },
-      "travelers": {
-        "count": "2 adults · 1 child",
-        "sleeps": "5 sleeps",
-        "dateRange": "Oct 4 – Oct 9, 2026"
-      },
+      "travelers": { "adults": 2, "children": 1 },
       "flights": {
-        "airline": "Southwest Airlines",
+        "airline": "American Airlines",
+        "code": "AA",
         "departure": {
-          "date": "SUN · OCT 4",
-          "from": {
-            "code": "DAL",
-            "city": "Dallas"
-          },
-          "to": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "departTime": "8:00 AM",
-          "arriveTime": "11:05 AM",
-          "stops": "1 · via AUS",
-          "duration": "5h 5m",
-          "segment1": {
-            "flight": "Southwest Airlines #987",
-            "detail": "DAL 8:00 AM → AUS 9:00 AM · Sun, Oct 4"
-          },
-          "segment2": {
-            "flight": "Southwest Airlines #627",
-            "detail": "AUS 10:30 AM → SJD 11:05 AM · Sun, Oct 4"
-          },
-          "barcode": "WN · DAL→SJD · 04OCT26"
+          "duration": "2h 46m",
+          "segments": [
+            {
+              "number": "1304",
+              "from": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "to": { "code": "SJD", "city": "Los Cabos" },
+              "depart": "2026-10-04T09:00",
+              "arrive": "2026-10-04T09:46"
+            }
+          ]
         },
         "return": {
-          "date": "FRI · OCT 9",
-          "from": {
-            "code": "SJD",
-            "city": "Los Cabos"
-          },
-          "to": {
-            "code": "DAL",
-            "city": "Dallas"
-          },
-          "departTime": "1:05 PM",
-          "arriveTime": "9:50 PM",
-          "stops": "1 · via SAN",
-          "duration": "6h 45m",
-          "segment1": {
-            "flight": "Southwest Airlines #1234",
-            "detail": "SJD 1:05 PM → SAN 3:20 PM · Fri, Oct 9"
-          },
-          "segment2": {
-            "flight": "Southwest Airlines #1382",
-            "detail": "SAN 4:50 PM → DAL 9:50 PM · Fri, Oct 9"
-          },
-          "barcode": "WN · SJD→DAL · 09OCT26"
+          "duration": "2h 53m",
+          "segments": [
+            {
+              "number": "2372",
+              "from": { "code": "SJD", "city": "Los Cabos" },
+              "to": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "depart": "2026-10-09T15:22",
+              "arrive": "2026-10-09T20:15"
+            }
+          ]
         }
       },
       "hotel": {
         "name": "Dreams Los Cabos Suites Golf Resort & Spa — All Inclusive",
         "tagline": "San Jose del Cabo",
-        "rating": "★ 5.0 RATING",
-        "checkin": "Sun, Oct 4, 2026",
-        "checkout": "Fri, Oct 9, 2026",
-        "nights": "5",
-        "room": {
-          "occupancy": "ROOM 1 · 2 ADULTS · 1 CHILD",
-          "type": "Junior Suite Ocean View King",
-          "note": "Unlimited-Luxury all-inclusive · book now for $350 Instant Savings"
-        },
+        "rating": 5,
+        "room": { "type": "Junior Suite Ocean View King", "note": "Unlimited-Luxury all-inclusive · book now for $350 Instant Savings" },
         "amenities": [
           "À la carte gourmet dining, no reservations required",
           "Unlimited top-shelf domestic & international spirits",
@@ -615,62 +349,203 @@
           "Daily maid service",
           "Live nightly entertainment, theme parties & oceanfront bars"
         ],
-        "honeymoon": {
-          "title": "Booking perks included",
-          "description": "Book now for $350 Instant Savings plus free perks: an in-room sparkling-wine family breakfast, a 25% spa discount (one per person/stay), one bottle of wine, rum or tequila per room, and a $200 resort credit per stay (up to $50/day). Blackout Dec 21–Jan 4."
-        },
         "note": "Student/spring-break groups traveling without a responsible adult in each room are not permitted; the hotel may deny lodging. All amenities subject to availability."
       },
       "addons": [
-        {
-          "title": "Instant Savings — July Sale",
-          "description": "Included with hotel · Oct 4"
-        },
-        {
-          "title": "Transportation to & from your hotel",
-          "description": "Included with hotel · Oct 4"
-        },
-        {
-          "title": "Identification required for travel",
-          "description": "Included with hotel · Oct 4"
-        }
+        { "title": "Instant Savings — July Sale", "description": "Included with hotel · Oct 4" },
+        { "title": "Transportation to & from your hotel", "description": "Included with hotel · Oct 4" },
+        { "title": "Identification required for travel", "description": "Included with hotel · Oct 4" }
       ],
       "pricing": {
-        "totalPrice": "$3,663.75",
-        "totalWithoutFlights": "$2,428.67",
-        "deposit": {
-          "amount": "$1,914.54",
-          "dueDate": "by July 14, 2026"
+        "totalPrice": 4469.15,
+        "deposit": { "amount": 750, "dueDate": "2026-07-14" },
+        "fullPaymentDueDate": "2026-08-20",
+        "packagePrice": 4562.99,
+        "adultBase": 2281.5,
+        "childBase": 0,
+        "promotion": { "code": "JULY26", "amount": -93.84 },
+        "options": 0,
+        "payInDestination": 0
+      }
+    },
+    "F2818C5F-3EA9-4069-B745-4DB136F03363": {
+      "client": "Steph Perz",
+      "advisor": "Kaitlyn Truran",
+      "supplier": "Apple Vacations",
+      "quotedDate": "2026-07-14",
+      "overview": {
+        "headline": "Dreams Los Cabos Suites Golf Resort & Spa (for 2)",
+        "subhead": "five sun-soaked days on the Baja coast",
+        "destination": "Los Cabos",
+        "category": "Beach"
+      },
+      "travelers": { "adults": 2, "children": 0 },
+      "flights": {
+        "airline": "American Airlines",
+        "code": "AA",
+        "departure": {
+          "duration": "2h 46m",
+          "segments": [
+            {
+              "number": "1304",
+              "from": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "to": { "code": "SJD", "city": "Los Cabos" },
+              "depart": "2026-10-04T09:00",
+              "arrive": "2026-10-04T09:46"
+            }
+          ]
         },
-        "fullPayment": {
-          "amount": "$3,663.75",
-          "dueDate": "by Aug 20, 2026"
-        },
-        "payments": {
-          "paidToDate": "$0.00",
-          "balanceDue": "$3,663.75",
-          "packagePrice": "$3,759.47"
-        },
-        "breakdown": {
-          "adults": {
-            "label": "Adult base price (×2)",
-            "price": "$1,879.74"
-          },
-          "child": {
-            "label": "Child / junior base price (×1)",
-            "price": "$0.00"
-          },
-          "promotion": {
-            "label": "Promotion (JULY26)",
-            "amount": "−$95.72"
-          },
-          "optionsAmount": "$0.00",
-          "payInDestination": "$0.00"
+        "return": {
+          "duration": "2h 53m",
+          "segments": [
+            {
+              "number": "2372",
+              "from": { "code": "SJD", "city": "Los Cabos" },
+              "to": { "code": "DFW", "city": "Dallas/Fort Worth" },
+              "depart": "2026-10-09T15:22",
+              "arrive": "2026-10-09T20:15"
+            }
+          ]
         }
       },
-      "contact": {
-        "advisor": "Kaitlyn",
-        "advisorFull": "Kaitlyn Truran"
+      "hotel": {
+        "name": "Dreams Los Cabos Suites Golf Resort & Spa — All Inclusive",
+        "tagline": "San Jose del Cabo",
+        "rating": 5,
+        "room": { "type": "Junior Suite Ocean View King", "note": "Unlimited-Luxury all-inclusive · book now for $350 Instant Savings" },
+        "amenities": [
+          "À la carte gourmet dining, no reservations required",
+          "Unlimited top-shelf domestic & international spirits",
+          "Unlimited natural fruit juices & soft drinks",
+          "24-hour room & concierge service",
+          "Pool and beach wait service",
+          "Daily refreshed mini-bar (soft drinks, juice, water & beer)",
+          "Daily maid service",
+          "Live nightly entertainment, theme parties & oceanfront bars"
+        ],
+        "note": "Student/spring-break groups traveling without a responsible adult in each room are not permitted; the hotel may deny lodging. All amenities subject to availability."
+      },
+      "addons": [
+        { "title": "Instant Savings — July Sale", "description": "Included with hotel · Oct 4" },
+        { "title": "Transportation to & from your hotel", "description": "Included with hotel · Oct 4" },
+        { "title": "Identification required for travel", "description": "Included with hotel · Oct 4" }
+      ],
+      "pricing": {
+        "totalPrice": 3408.18,
+        "deposit": { "amount": 500, "dueDate": "2026-07-14" },
+        "fullPaymentDueDate": "2026-08-20",
+        "packagePrice": 3493.47,
+        "adultBase": 1746.74,
+        "promotion": { "code": "JULY26", "amount": -85.29 },
+        "options": 0,
+        "payInDestination": 0
+      }
+    },
+    "61587b1e-f9a8-4a16-bfb1-c91841a860fc": {
+      "advisor": "Katie Truran",
+      "pricing": {
+        "deposit": {
+          "amount": 2487.48,
+          "dueDate": "2026-07-16"
+        },
+        "options": 0,
+        "adultBase": 1687.55,
+        "childBase": 284.81,
+        "promotion": {
+          "code": "JULY26",
+          "amount": -54.22
+        },
+        "totalPrice": 3605.69,
+        "packagePrice": 3659.91,
+        "payInDestination": 0,
+        "fullPaymentDueDate": "2026-08-20"
+      },
+      "overview": {
+        "subhead": "Five Days in Punta Cana",
+        "headline": "Riu Palace Punta Cana (for 3)",
+        "destination": "Punta Cana"
+      },
+      "travelers": {
+        "adults": 2,
+        "children": 1
+      },
+      "quotedDate": "2026-07-16",
+      "client": "Steph Perz",
+      "flights": {
+        "airline": "Southwest Airlines",
+        "departure": {
+          "date": "2026-10-04",
+          "duration": 470,
+          "segments": [
+            {
+              "number": "WN1404",
+              "from": {
+                "code": "DAL",
+                "city": "Dallas"
+              },
+              "to": {
+                "code": "MCO",
+                "city": "Orlando"
+              },
+              "depart": "2026-10-04T06:30:00+00:00",
+              "arrive": "2026-10-04T10:00:00+00:00"
+            },
+            {
+              "number": "WN782",
+              "from": {
+                "code": "MCO",
+                "city": "Orlando"
+              },
+              "to": {
+                "code": "PUJ",
+                "city": "Punta Cana"
+              },
+              "depart": "2026-10-04T11:40:00+00:00",
+              "arrive": "2026-10-04T14:20:00+00:00"
+            }
+          ]
+        },
+        "return": {
+          "date": "2026-10-09",
+          "duration": 525,
+          "segments": [
+            {
+              "number": "WN812",
+              "from": {
+                "code": "PUJ",
+                "city": "Punta Cana"
+              },
+              "to": {
+                "code": "BWI",
+                "city": "Baltimore"
+              },
+              "depart": "2026-10-09T14:45:00+00:00",
+              "arrive": "2026-10-09T18:45:00+00:00"
+            },
+            {
+              "number": "WN991",
+              "from": {
+                "code": "BWI",
+                "city": "Baltimore"
+              },
+              "to": {
+                "code": "DAL",
+                "city": "Dallas"
+              },
+              "depart": "2026-10-09T21:20:00+00:00",
+              "arrive": "2026-10-09T23:30:00+00:00"
+            }
+          ]
+        }
+      },
+      "hotel": {
+        "room": {
+          "beds": "1 King + Sofa Bed",
+          "type": "Junior Suite"
+        },
+        "board": "All Inclusive",
+        "rating": 4,
+        "name": "RIU Palace Punta Cana"
       }
     }
   }

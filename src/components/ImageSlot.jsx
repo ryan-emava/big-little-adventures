@@ -5,30 +5,49 @@
  * dropped photos lived in localStorage (never in files). For production, pass a
  * real `src` (drop your photo in src/assets and import it) — the slot then renders
  * a plain <img>. With no `src` it shows the dashed empty-state placeholder.
+ *
+ * Pass `webp` alongside `src` to serve an optimized WebP with the `src` (e.g. a
+ * JPEG) as the fallback. Set `priority` for above-the-fold images like the hero
+ * so the browser fetches them eagerly at high priority (better LCP).
  */
 export default function ImageSlot({
   src,
+  webp,
   alt = "",
   shape = "rounded",
   radius = 22,
+  priority = false,
   placeholder = "Drop an image",
 }) {
   const borderRadius = shape === "circle" ? "50%" : radius;
 
   if (src) {
-    return (
+    const imgStyle = {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      borderRadius,
+      display: "block",
+    };
+    const img = (
       <img
         src={src}
         alt={alt}
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          borderRadius,
-          display: "block",
-        }}
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : undefined}
+        decoding="async"
+        style={imgStyle}
       />
     );
+    if (webp) {
+      return (
+        <picture style={{ display: "block", width: "100%", height: "100%" }}>
+          <source srcSet={webp} type="image/webp" />
+          {img}
+        </picture>
+      );
+    }
+    return img;
   }
 
   return (

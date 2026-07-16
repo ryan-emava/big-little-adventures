@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import tripsData from "../data/trips.json";
 import SiteHeader from "./SiteHeader.jsx";
 import SiteFooter from "./SiteFooter.jsx";
+import { toDisplayTrip } from "../lib/tripFormat.js";
 
 export default function ClientTripsPage() {
   const { clientId } = useParams();
@@ -9,11 +10,8 @@ export default function ClientTripsPage() {
     ([guid, data]) => ({ guid, data })
   );
 
-  // Pull client name from the first trip that has data
-  const clientName =
-    clientTrips[0]?.data?.overview?.preparedByLine
-      ?.match(/^Prepared for (.+?) by/)?.[1]
-      ?.trim() || "Your Trips";
+  // Client name now lives directly on each trip record.
+  const clientName = clientTrips[0]?.data?.client || "Your Trips";
 
   return (
     <div
@@ -102,7 +100,7 @@ export default function ClientTripsPage() {
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           {clientTrips.map((trip) => {
-            const d = trip.data;
+            const d = toDisplayTrip(trip.data);
             const overview = d?.overview;
             const travelers = d?.travelers;
             const pricing = d?.pricing;
@@ -266,19 +264,6 @@ export default function ClientTripsPage() {
           </div>
         )}
 
-        {/* Footer note */}
-        <p
-          style={{
-            textAlign: "center",
-            marginTop: 48,
-            fontSize: 14,
-            color: "var(--ink-400)",
-            fontFamily: "var(--font-display)",
-          }}
-        >
-          Questions? Reply to your quote email or reach out to your advisor
-          directly.
-        </p>
       </div>
 
       <SiteFooter />

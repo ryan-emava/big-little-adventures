@@ -6,5 +6,5 @@ export default function TripPage() {
   const { clientId, guid } = useParams()
   const trip = tripsData[clientId]?.[guid] || null
 
-  return <QuoteDetail trip={trip} />
+  return <QuoteDetail trip={trip} clientId={clientId} tripGuid={guid} />
 }
