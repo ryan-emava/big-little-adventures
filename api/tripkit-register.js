@@ -1,4 +1,4 @@
-const TRKIT_API = "https://trkit.lovable.app/api/public/v1/proposals"
+const TRKIT_API = "https://admin.biglittleadventures.co/api/public/v1/proposals"
 
 function json(res, status, body) {
   res.statusCode = status

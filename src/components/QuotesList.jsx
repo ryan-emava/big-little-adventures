@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import SiteHeader from "./SiteHeader.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { useQuotes } from "../lib/useQuotes.js";
+import { usePageTitle } from "../lib/usePageTitle.js";
+import { SkeletonCard } from "./Skeleton.jsx";
+import LoadErrorNotice from "./LoadErrorNotice.jsx";
 
 // From a subpage, nav links point back to the homepage sections.
 const subpageLinks = [
@@ -11,6 +14,7 @@ const subpageLinks = [
 ];
 
 export default function QuotesList() {
+  usePageTitle("Reviews");
   const { quotes, loading, error } = useQuotes();
 
   return (
@@ -62,15 +66,15 @@ export default function QuotesList() {
         </div>
 
         {loading && (
-          <p style={{ textAlign: "center", color: "var(--ink-400)" }}>
-            Loading reviews…
-          </p>
+          <div
+            id="quotes-grid"
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}
+          >
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
         )}
-        {error && (
-          <p style={{ textAlign: "center", color: "var(--ink-400)" }}>
-            Reviews are taking a moment to load. Please try again shortly.
-          </p>
-        )}
+        {error && <LoadErrorNotice error={error} what="the reviews" />}
         {quotes && quotes.length === 0 && (
           <p style={{ textAlign: "center", color: "var(--ink-400)" }}>
             No reviews yet — check back soon!

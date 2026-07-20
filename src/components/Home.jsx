@@ -7,6 +7,7 @@ import ImageSlot from "./ImageSlot.jsx";
 import SiteHeader from "./SiteHeader.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { useQuotes } from "../lib/useQuotes.js";
+import { usePageTitle } from "../lib/usePageTitle.js";
 import sunImg from "../assets/sun.png";
 import heroJpg from "../assets/hero.jpg";
 import heroWebp from "../assets/hero.webp";
@@ -93,7 +94,7 @@ const labelStyle = {
   fontWeight: 600,
   fontSize: 12,
   letterSpacing: "0.16em",
-  color: "var(--ink-400)",
+  color: "var(--ink-600)", // ink-400 fails AA contrast for small text on white
 };
 
 export default function Home({
@@ -101,7 +102,49 @@ export default function Home({
   littleRatio = 1,
   showSunburst = false,
 }) {
-  const [sent, setSent] = useState(false);
+  usePageTitle("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    tripType: "Disney & theme parks",
+    party: "",
+    notes: "",
+    honeypot: "",
+  });
+  const [formState, setFormState] = useState("idle"); // idle | sending | sent | error
+  const [formError, setFormError] = useState(null);
+  const sent = formState === "sent";
+  const setField = (key) => (e) =>
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const submitRequest = async () => {
+    if (!form.name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      setFormError("Please add your name and a valid email so Katie can reply.");
+      return;
+    }
+    setFormState("sending");
+    setFormError(null);
+    try {
+      const r = await fetch("/api/trip-request", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!r.ok) {
+        const body = await r.json().catch(() => ({}));
+        throw new Error(body.error || `Request failed (${r.status})`);
+      }
+      setFormState("sent");
+    } catch (err) {
+      setFormState("error");
+      setFormError(
+        err.message.includes("valid email") || err.message.includes("name")
+          ? err.message
+          : "Something went wrong sending your request. Please try again in a moment.",
+      );
+    }
+  };
+
   const { quotes: apiQuotes } = useQuotes();
 
   const featured = apiQuotes?.filter((q) => q.featured);
@@ -785,28 +828,39 @@ export default function Home({
                   <div
                     style={{ display: "flex", flexDirection: "column", gap: 6 }}
                   >
-                    <label style={labelStyle}>YOUR NAME</label>
+                    <label htmlFor="tr-name" style={labelStyle}>YOUR NAME</label>
                     <input
+                      id="tr-name"
                       type="text"
                       placeholder="Juana Getaway"
+                      value={form.name}
+                      onChange={setField("name")}
                       style={inputStyle}
                     />
                   </div>
                   <div
                     style={{ display: "flex", flexDirection: "column", gap: 6 }}
                   >
-                    <label style={labelStyle}>EMAIL</label>
+                    <label htmlFor="tr-email" style={labelStyle}>EMAIL</label>
                     <input
+                      id="tr-email"
                       type="email"
                       placeholder="you@email.com"
+                      value={form.email}
+                      onChange={setField("email")}
                       style={inputStyle}
                     />
                   </div>
                   <div
                     style={{ display: "flex", flexDirection: "column", gap: 6 }}
                   >
-                    <label style={labelStyle}>DREAM TRIP</label>
-                    <select style={{ ...inputStyle, appearance: "none" }}>
+                    <label htmlFor="tr-triptype" style={labelStyle}>DREAM TRIP</label>
+                    <select
+                      id="tr-triptype"
+                      value={form.tripType}
+                      onChange={setField("tripType")}
+                      style={{ ...inputStyle, appearance: "none" }}
+                    >
                       <option>Disney &amp; theme parks</option>
                       <option>Cruise</option>
                       <option>Beach resort / all-inclusive</option>
@@ -817,10 +871,13 @@ export default function Home({
                   <div
                     style={{ display: "flex", flexDirection: "column", gap: 6 }}
                   >
-                    <label style={labelStyle}>WHO'S FLYING?</label>
+                    <label htmlFor="tr-party" style={labelStyle}>WHO'S FLYING?</label>
                     <input
+                      id="tr-party"
                       type="text"
                       placeholder="2 adults, 2 kids (4 &amp; 7)"
+                      value={form.party}
+                      onChange={setField("party")}
                       style={inputStyle}
                     />
                   </div>
@@ -828,9 +885,12 @@ export default function Home({
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 6 }}
                 >
-                  <label style={labelStyle}>ANYTHING ELSE?</label>
+                  <label htmlFor="tr-notes" style={labelStyle}>ANYTHING ELSE?</label>
                   <textarea
+                    id="tr-notes"
                     placeholder="Dates, budget, must-dos, nap schedules — the more the better."
+                    value={form.notes}
+                    onChange={setField("notes")}
                     rows={3}
                     style={{
                       ...inputStyle,
@@ -840,14 +900,33 @@ export default function Home({
                     }}
                   />
                 </div>
+                {/* Honeypot — hidden from humans, bots fill it and get discarded */}
+                <input
+                  type="text"
+                  value={form.honeypot}
+                  onChange={setField("honeypot")}
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: "absolute", left: -9999, height: 0, width: 0, opacity: 0 }}
+                />
                 <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                  <Button size="lg" onClick={() => setSent(true)}>
-                    Send trip request ✈
+                  <Button
+                    size="lg"
+                    disabled={formState === "sending"}
+                    onClick={submitRequest}
+                  >
+                    {formState === "sending" ? "Sending…" : "Send trip request ✈"}
                   </Button>
                   <span style={{ fontSize: 13.5, color: "var(--ink-400)" }}>
                     No spam. Just your trip plan.
                   </span>
                 </div>
+                {formError && (
+                  <p style={{ margin: 0, fontSize: 14, color: "var(--color-danger)" }}>
+                    {formError}
+                  </p>
+                )}
               </div>
             ) : (
               <div

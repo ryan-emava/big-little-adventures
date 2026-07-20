@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import SiteHeader from './SiteHeader.jsx'
 import SiteFooter from './SiteFooter.jsx'
 import { toDisplayTrip } from '../lib/tripFormat.js'
+import TripCta from './TripCta.jsx'
+import AdvisorCard from './AdvisorCard.jsx'
+import HotelGallery from './HotelGallery.jsx'
 
 export default function QuoteDetail({ trip, clientId, tripGuid }) {
   if (!trip) {
@@ -31,6 +34,7 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
   const travelers = d.travelers || {}
   // ...existing code...
   const addons = d.addons || []
+  const requirements = d.requirements || []
 
   const amenities = hotel.amenities || []
   const parseMoney = (v) => parseFloat(String(v || '').replace(/[^0-9.-]/g, '')) || 0
@@ -105,7 +109,7 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
 
           const script = document.createElement('script')
           script.id = scriptId
-          script.src = 'https://trkit.lovable.app/sdk/v1.js'
+          script.src = 'https://admin.biglittleadventures.co/sdk/v1.js'
           script.async = true
           script.dataset.publicKey = data.publicKey
           script.dataset.proposalId = tripGuid
@@ -118,7 +122,7 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
           if (!publicKey) return
           const script = document.createElement('script')
           script.id = scriptId
-          script.src = 'https://trkit.lovable.app/sdk/v1.js'
+          script.src = 'https://admin.biglittleadventures.co/sdk/v1.js'
           script.async = true
           script.dataset.publicKey = publicKey
           script.dataset.proposalId = tripGuid
@@ -166,7 +170,7 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
           borderRadius: 'var(--radius-lg)',
           boxShadow: 'var(--shadow-card)',
           padding: '40px 40px 32px',
-        }}>
+        }} className="trip-header">
           <img
             src="/sun.png"
             alt=""
@@ -197,21 +201,41 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
               </div>
             </div>
 
-            {/* Right: price */}
+            {/* Right: price — deposit-first when we have one (people commit to $750, not $3,848) */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10, zIndex: 1 }}>
-              <div style={{ textAlign: 'right', marginRight: 24 }}>
-                <div style={{ fontSize: 11, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-text-muted)' }}>TOTAL PRICE</div>
-                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 34, color: 'var(--color-accent)', lineHeight: 1.05 }}>
-                  {pricing.totalPrice || '$0.00'}
+              {pricing.deposit ? (
+                <div style={{ textAlign: 'right', marginRight: 24 }}>
+                  <div style={{ fontSize: 11, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-text-muted)' }}>HOLD THIS TRIP FOR</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 34, color: 'var(--color-accent)', lineHeight: 1.05 }}>
+                    {pricing.deposit.amount}
+                  </div>
+                  {pricing.deposit.dueDate && (
+                    <div style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>deposit {pricing.deposit.dueDate}</div>
+                  )}
+                  {pricing.balanceNotDueUntil && (
+                    <div style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>balance not due until {pricing.balanceNotDueUntil}</div>
+                  )}
+                  {pricing.totalPrice && (
+                    <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 14, color: 'var(--color-brand)', marginTop: 6 }}>
+                      {pricing.totalPrice} total · incl. taxes &amp; fees
+                    </div>
+                  )}
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>incl. taxes &amp; fees</div>
-              </div>
+              ) : (
+                <div style={{ textAlign: 'right', marginRight: 24 }}>
+                  <div style={{ fontSize: 11, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-text-muted)' }}>TOTAL PRICE</div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 34, color: 'var(--color-accent)', lineHeight: 1.05 }}>
+                    {pricing.totalPrice || '$0.00'}
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>incl. taxes &amp; fees</div>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Headline */}
           <div style={{ marginTop: 28 }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 46, lineHeight: 1.05, color: 'var(--color-brand)' }}>
+            <div className="trip-headline" style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 46, lineHeight: 1.05, color: 'var(--color-brand)' }}>
               {overview.headline}
             </div>
             <div style={{ fontFamily: 'var(--font-script)', fontSize: 28, color: 'var(--color-accent)', marginTop: 2 }}>
@@ -220,6 +244,17 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
             <div style={{ marginTop: 12, fontSize: 15, color: 'var(--color-text-secondary)' }}>
               {overview.preparedByLine}
             </div>
+            <div style={{ marginTop: 6, fontSize: 12.5, color: 'var(--color-text-muted)' }}>
+              Prices &amp; availability subject to change until booked.
+            </div>
+            {d.quotedDaysAgo != null && d.quotedDaysAgo > 7 && (
+              <div style={{ marginTop: 6, fontSize: 13.5, color: 'var(--color-accent)', fontWeight: 600 }}>
+                Quoted {d.quotedDaysAgo} days ago — prices have likely moved.{' '}
+                <a href="#trip-cta" style={{ color: 'var(--color-accent)' }}>
+                  Ask for refreshed pricing ↓
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Info boxes */}
@@ -253,6 +288,22 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
                 <div style={{ fontSize: 11, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-text-muted)' }}>DURATION</div>
                 <div style={{ fontFamily: 'var(--font-script)', fontWeight: 700, fontSize: 22, color: 'var(--color-accent)', lineHeight: 1 }}>
                   {travelers.sleeps}
+                </div>
+              </div>
+            )}
+            {pricing.perPersonPerNight && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2, background: 'var(--peach-100)', borderRadius: 'var(--radius-md)', padding: '12px 18px' }}>
+                <div style={{ fontSize: 11, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-text-muted)' }}>PER PERSON · PER NIGHT</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 16, color: 'var(--color-brand)' }}>
+                  ≈ {pricing.perPersonPerNight}{flights.airline ? ' · flights included' : ''}
+                </div>
+              </div>
+            )}
+            {pricing.savings && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 2, background: 'var(--peach-100)', borderRadius: 'var(--radius-md)', padding: '12px 18px' }}>
+                <div style={{ fontSize: 11, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-text-muted)' }}>YOU'RE SAVING</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 16, color: 'var(--color-accent)' }}>
+                  {pricing.savings.amount}{pricing.savings.code ? ` · ${pricing.savings.code}` : ''}
                 </div>
               </div>
             )}
@@ -372,13 +423,16 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
                 )}
               </div>
 
+              {/* Photos + explore links */}
+              <HotelGallery photos={hotel.photos} links={hotel.links} hotelName={hotel.name} />
+
               {/* Amenities */}
               {amenities.length > 0 && (
                 <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: 22 }}>
                   <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 13, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-brand)', marginBottom: 14 }}>
                     ALL-INCLUSIVE AMENITIES
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 28px' }}>
+                  <div className="amenities-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px 28px' }}>
                     {amenities.map((a, i) => (
                       <div key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
                         <span style={{ color: 'var(--color-accent)', fontWeight: 800 }}>›</span>
@@ -406,8 +460,8 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
                 Included add-ons
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-              {addonList.map((addon, i) => (
+            <div className="cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+                {addonList.map((addon, i) => (
                 addon.title && (
                   <div key={i} style={{ background: 'var(--white)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-card-soft)', padding: 24 }}>
                     <div style={{
@@ -429,6 +483,42 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
                     )}
                   </div>
                 )
+              ))}
+            </div>
+          </>
+        )}
+
+        {/* ===== REQUIREMENTS ===== */}
+        {requirements.length > 0 && (
+          <>
+            <div style={{ padding: '0 4px', marginTop: 8 }}>
+              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 28, color: 'var(--color-brand)' }}>
+                Before you go
+              </div>
+            </div>
+            <div className="cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+              {requirements.map((req, i) => (
+                <div key={i} style={{ background: 'var(--white)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-card-soft)', padding: 24 }}>
+                  <div style={{
+                    fontFamily: 'var(--font-display)',
+                    fontWeight: 600,
+                    fontSize: 12,
+                    letterSpacing: 'var(--tracking-wide)',
+                    color: 'var(--color-accent)',
+                  }}>
+                    REQUIRED
+                  </div>
+                  {req.title && (
+                    <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 17, color: 'var(--color-brand)', marginTop: 12 }}>
+                      {req.title}
+                    </div>
+                  )}
+                  {req.description && (
+                    <div style={{ fontSize: 13, color: 'var(--color-text-secondary)', marginTop: 4 }}>
+                      {req.description}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           </>
@@ -506,6 +596,12 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
                   <span>{pricing.breakdown.child.price}</span>
                 </div>
               )}
+              {pricing.breakdown.packageOptions?.map((opt, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14, color: 'var(--color-text-muted)', paddingLeft: 14 }}>
+                  <span>{opt.title || 'Included option'}</span>
+                  <span>{opt.price}</span>
+                </div>
+              ))}
               {pricing.breakdown.promotion && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15, color: 'var(--color-text-secondary)' }}>
                   <span>{pricing.breakdown.promotion.label}</span>
@@ -514,6 +610,21 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
                   </span>
                 </div>
               )}
+              {pricing.breakdown.options?.map((opt, i) => (
+                <div key={i}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15, color: 'var(--color-text-secondary)' }}>
+                    <span>{opt.title || 'Option'}</span>
+                    <span style={{ fontFamily: 'var(--font-display)', fontWeight: 600, color: 'var(--color-brand)' }}>
+                      {opt.price}
+                    </span>
+                  </div>
+                  {opt.description && (
+                    <div style={{ fontSize: 13, color: 'var(--color-text-muted)', paddingLeft: 14 }}>
+                      {opt.description}
+                    </div>
+                  )}
+                </div>
+              ))}
               {pricing.breakdown.optionsAmount && (
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 15, color: 'var(--color-text-secondary)' }}>
                   <span>Options</span>
@@ -544,6 +655,12 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
             </div>
           )}
         </div>
+
+        {/* ===== CTA ===== */}
+        <div id="trip-cta">
+          <TripCta clientId={clientId} tripId={tripGuid} headline={overview.headline} />
+        </div>
+        <AdvisorCard advisorName={trip.advisor} />
       </div>
 
       <SiteFooter />
@@ -554,9 +671,9 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
 // Flight ticket sub-component
 function FlightTicket({ flight, label }) {
   return (
-    <div style={{ display: 'flex', background: 'var(--white)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-card)', overflow: 'hidden' }}>
+    <div className="flight-ticket" style={{ display: 'flex', background: 'var(--white)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-card)', overflow: 'hidden' }}>
       {/* Left: flight info */}
-      <div style={{ flex: '1 1 58%', padding: '28px 36px', position: 'relative' }}>
+      <div className="ft-main" style={{ flex: '1 1 58%', padding: '28px 36px', position: 'relative' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 22 }}>
           <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 13, letterSpacing: 'var(--tracking-widest)', color: 'var(--color-brand)' }}>
             {label}
@@ -578,7 +695,7 @@ function FlightTicket({ flight, label }) {
         {/* Route */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 22 }}>
           <div>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 38, color: 'var(--color-brand)', lineHeight: 1 }}>
+            <div className="ft-code" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 38, color: 'var(--color-brand)', lineHeight: 1 }}>
               {flight.from?.code}
             </div>
             <div style={{ fontFamily: 'var(--font-script)', fontSize: 20, color: 'var(--color-accent)' }}>
@@ -591,7 +708,7 @@ function FlightTicket({ flight, label }) {
             <div style={{ flex: 1, height: 0, borderTop: '2px dashed var(--line-300)' }}></div>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 38, color: 'var(--color-brand)', lineHeight: 1 }}>
+            <div className="ft-code" style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 38, color: 'var(--color-brand)', lineHeight: 1 }}>
               {flight.to?.code}
             </div>
             <div style={{ fontFamily: 'var(--font-script)', fontSize: 20, color: 'var(--color-accent)' }}>
@@ -638,7 +755,7 @@ function FlightTicket({ flight, label }) {
       </div>
 
       {/* Right: segments + barcode */}
-      <div style={{ borderLeft: '2px dashed var(--line-300)', flex: '1 1 42%', padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div className="ft-side" style={{ borderLeft: '2px dashed var(--line-300)', flex: '1 1 42%', padding: '28px 32px', display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div style={{ fontSize: 11, letterSpacing: 'var(--tracking-wide)', color: 'var(--color-text-muted)' }}>
           SEGMENTS · MAIN CABIN COACH (Q)
         </div>

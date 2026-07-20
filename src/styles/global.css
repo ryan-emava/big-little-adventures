@@ -116,3 +116,147 @@ a:hover {
     align-items: flex-start !important;
   }
 }
+
+/* ---- Loading skeletons ---- */
+.skeleton {
+  background: var(--line-200);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; opacity: 0.7; }
+}
+
+/* ---- Accessibility: visible keyboard focus ---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--teal-500);
+  outline-offset: 2px;
+}
+
+/* ---- Hotel photo strip (vacation-snapshot look) ---- */
+.photo-strip {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  /* breathing room so tilted frames & shadows don't clip */
+  padding: 10px 6px 14px;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.photo-frame {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  background: var(--white);
+  padding: 6px 6px 12px; /* extra bottom = polaroid */
+  border-radius: 10px;
+  box-shadow: var(--shadow-card-soft);
+  transition: transform var(--duration-standard) var(--ease-bounce);
+}
+.photo-frame:hover {
+  transform: rotate(0deg) scale(1.03) !important;
+}
+.photo-frame img {
+  display: block;
+  height: 150px;
+  width: auto;
+  /* clamp extreme aspects: no slivers (portraits), no runways (panoramas) */
+  min-width: 110px;
+  max-width: 260px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+@media (max-width: 640px) {
+  .photo-frame img {
+    height: 120px;
+    min-width: 90px;
+    max-width: 200px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-frame {
+    transition: none;
+  }
+}
+
+/* Lightbox */
+.lightbox-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--teal-800);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+.lightbox-arrow:hover {
+  background: var(--coral-500);
+}
+.lightbox-thumbs {
+  display: flex;
+  gap: 8px;
+  max-width: min(920px, 94vw);
+  overflow-x: auto;
+  padding: 4px;
+}
+@media (max-width: 640px) {
+  .lightbox-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+  }
+}
+
+/* ---- Trip detail page (QuoteDetail) ----
+   Components use inline styles, so overrides need !important. */
+@media (max-width: 880px) {
+  /* Flight tickets stack: segments pane moves below the route pane */
+  .flight-ticket {
+    flex-direction: column !important;
+  }
+  .flight-ticket .ft-side {
+    border-left: none !important;
+    border-top: 2px dashed var(--line-300);
+  }
+  /* Add-on / requirement cards: 3-up -> 2-up */
+  .cards-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 640px) {
+  .trip-header {
+    padding: 28px 22px 24px !important;
+  }
+  .trip-headline {
+    font-size: 32px !important;
+  }
+  .ft-main,
+  .flight-ticket .ft-side {
+    padding: 20px 22px !important;
+  }
+  .ft-code {
+    font-size: 28px !important;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .amenities-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .trip-cta {
+    padding: 24px 22px !important;
+  }
+  .trip-cta-actions button {
+    width: 100%;
+  }
+}

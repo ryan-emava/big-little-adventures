@@ -23,6 +23,23 @@ function devApi(env) {
       const { default: trkitRegisterHandler } = await import(
         "./api/trkit-register.js"
       );
+      const { default: clientTripsHandler } = await import(
+        "./api/clients/[clientId]/trips.js"
+      );
+      const { default: tripIntentHandler } = await import("./api/trip-intent.js");
+      const { default: tripRequestHandler } = await import("./api/trip-request.js");
+      const mount = (path, h) =>
+        server.middlewares.use(path, (req, res) => {
+          Promise.resolve(h(req, res)).catch((err) => {
+            res.statusCode = 500;
+            res.setHeader("content-type", "application/json");
+            res.end(
+              JSON.stringify({ error: String((err && err.message) || err) }),
+            );
+          });
+        });
+      mount("/api/trip-intent", tripIntentHandler);
+      mount("/api/trip-request", tripRequestHandler);
       server.middlewares.use("/api/quotes", (req, res) => {
         Promise.resolve(handler(req, res)).catch((err) => {
           res.statusCode = 500;
@@ -41,13 +58,32 @@ function devApi(env) {
           );
         });
       });
+      // Dynamic route /api/clients/:clientId/trips — mounted as a catch-all so
+      // the full path (with the id) reaches the handler untouched.
+      server.middlewares.use((req, res, next) => {
+        const path = (req.url || "").split("?")[0];
+        if (!/^\/api\/clients\/[^/]+\/trips$/.test(path)) return next();
+        Promise.resolve(clientTripsHandler(req, res)).catch((err) => {
+          res.statusCode = 500;
+          res.setHeader("content-type", "application/json");
+          res.end(
+            JSON.stringify({ error: String((err && err.message) || err) }),
+          );
+        });
+      });
     },
   };
 }
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
+  // Dev mode only auto-loads .env / .env.local / .env.development, but the real
+  // keys live in .env.prod — load it as a fallback so `npm run dev` can reach
+  // the CRM. Mode-specific files still win when both define a key.
+  const env = {
+    ...loadEnv("prod", process.cwd(), ""),
+    ...loadEnv(mode, process.cwd(), ""),
+  };
   return {
     plugins: [react(), devApi(env)],
   };

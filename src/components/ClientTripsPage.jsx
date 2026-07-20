@@ -1,17 +1,25 @@
-import { Link, useParams } from "react-router-dom";
-import tripsData from "../data/trips.json";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import SiteHeader from "./SiteHeader.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { toDisplayTrip } from "../lib/tripFormat.js";
+import { useClientTrips } from "../lib/useClientTrips.js";
+import { usePageTitle } from "../lib/usePageTitle.js";
+import { SkeletonCard } from "./Skeleton.jsx";
+import LoadErrorNotice from "./LoadErrorNotice.jsx";
 
 export default function ClientTripsPage() {
   const { clientId } = useParams();
-  const clientTrips = Object.entries(tripsData[clientId] || {}).map(
-    ([guid, data]) => ({ guid, data })
-  );
+  const [searchParams] = useSearchParams();
+  const status = searchParams.get("status");
+  const { trips, loading, error } = useClientTrips(clientId, status);
+  const clientTrips = Object.entries(trips || {}).map(([guid, data]) => ({
+    guid,
+    data,
+  }));
 
   // Client name now lives directly on each trip record.
   const clientName = clientTrips[0]?.data?.client || "Your Trips";
+  usePageTitle(loading ? null : "Your Trip Quotes");
 
   return (
     <div
@@ -73,7 +81,15 @@ export default function ClientTripsPage() {
         </div>
 
         {/* Trip cards */}
-        {clientTrips.length === 0 ? (
+        {loading ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
+        ) : error ? (
+          <LoadErrorNotice error={error} what="your trips" />
+        ) : clientTrips.length === 0 ? (
           <div
             style={{
               background: "var(--white)",
@@ -94,7 +110,7 @@ export default function ClientTripsPage() {
               No trips found
             </div>
             <p style={{ margin: "12px 0 0", color: "var(--ink-600)" }}>
-              Add quote data for this client in <code>src/data/trips.json</code>.
+              This client doesn’t have any quotes yet.
             </p>
           </div>
         ) : (
@@ -109,7 +125,7 @@ export default function ClientTripsPage() {
             return (
               <Link
                 key={trip.guid}
-                to={`/client/${clientId}/trips/${trip.guid}`}
+                to={`/client/${clientId}/trips/${trip.guid}${status ? `?status=${encodeURIComponent(status)}` : ""}`}
                 style={{ textDecoration: "none" }}
               >
                 <div
@@ -155,8 +171,7 @@ export default function ClientTripsPage() {
                         color: "var(--coral-500)",
                       }}
                     >
-                      {overview?.destination?.toUpperCase() ||
-                        trip.name.toUpperCase()}
+                      {(overview?.destination || overview?.headline || "Trip option").toUpperCase()}
                     </span>
                     <div
                       style={{
@@ -167,7 +182,7 @@ export default function ClientTripsPage() {
                         lineHeight: 1.1,
                       }}
                     >
-                      {overview?.headline || trip.name}
+                      {overview?.headline || "Trip option"}
                     </div>
                     <div
                       style={{

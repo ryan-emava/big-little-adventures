@@ -7,5 +7,20 @@
       "permanent": true
     }
   ],
-  "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/client/:clientId/trips/:guid",
+      "destination": "/api/og-trip?clientId=:clientId&guid=:guid"
+    },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/client/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex" },
+        { "key": "Referrer-Policy", "value": "same-origin" }
+      ]
+    }
+  ]
 }
