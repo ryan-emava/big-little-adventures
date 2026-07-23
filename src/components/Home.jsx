@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import Button from "../ds/Button.jsx";
 import Barcode from "../ds/Barcode.jsx";
 import { StampTag } from "../ds/Badge.jsx";
@@ -16,13 +17,15 @@ const services = [
   {
     code: "MCO",
     slug: "disney",
+    to: "/trips/disney",
     name: "Disney & parks",
     blurb:
-      "Park days, dining plans, Genie+ strategy, engineered around nap schedules.",
+      "Park days, dining plans, Lightning Lane strategy, engineered around nap schedules.",
   },
   {
     code: "SEA",
     slug: "cruises",
+    to: "/trips/cruises",
     name: "Family cruises",
     blurb:
       "Kids clubs, connecting cabins, and shore days that work for every age.",
@@ -30,6 +33,7 @@ const services = [
   {
     code: "SUN",
     slug: "beach",
+    to: "/trips/beach",
     name: "Beach & all-inclusive",
     blurb: "Warm-water resorts where the hardest choice is pool or ocean.",
   },
@@ -136,12 +140,23 @@ function Field({ label, htmlFor, required, error, children }) {
   );
 }
 
+// Maps the ?trip= slug (set by the /trips/* category pages) to the matching
+// Dream Trip select value, so arriving from a category preselects it.
+const TRIP_PARAM_TO_TYPE = {
+  disney: "Disney & theme parks",
+  cruise: "Cruise",
+  beach: "Beach resort / all-inclusive",
+  flights: "Flights + hotel package",
+};
+
 export default function Home({ showSunburst = false }) {
   usePageTitle("");
+  const [searchParams] = useSearchParams();
   const [form, setForm] = useState({
     name: "",
     email: "",
-    tripType: "Disney & theme parks",
+    tripType:
+      TRIP_PARAM_TO_TYPE[searchParams.get("trip")] || "Disney & theme parks",
     party: "",
     notes: "",
     honeypot: "",
@@ -401,52 +416,82 @@ export default function Home({ showSunburst = false }) {
               gap: 24,
             }}
           >
-            {services.map((s) => (
-              <div
-                key={s.code}
-                id={`trips-${s.slug}`}
-                style={{
-                  background: "var(--cream-050)",
-                  borderRadius: 22,
-                  padding: 28,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 12,
-                  scrollMarginTop: 100,
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 700,
-                    fontSize: 15,
-                    letterSpacing: "0.14em",
-                    color: "var(--coral-500)",
-                  }}
+            {services.map((s) => {
+              const cardStyle = {
+                background: "var(--cream-050)",
+                borderRadius: 22,
+                padding: 28,
+                display: "flex",
+                flexDirection: "column",
+                gap: 12,
+                scrollMarginTop: 100,
+                textDecoration: "none",
+              };
+              const inner = (
+                <>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 700,
+                      fontSize: 15,
+                      letterSpacing: "0.14em",
+                      color: "var(--coral-500)",
+                    }}
+                  >
+                    {s.code}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 600,
+                      fontSize: 22,
+                      color: "var(--teal-800)",
+                    }}
+                  >
+                    {s.name}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 15,
+                      lineHeight: 1.55,
+                      color: "var(--ink-600)",
+                    }}
+                  >
+                    {s.blurb}
+                  </span>
+                  {s.to && (
+                    <span
+                      className="service-card-cta"
+                      style={{
+                        marginTop: "auto",
+                        paddingTop: 4,
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 600,
+                        fontSize: 14,
+                        color: "var(--coral-500)",
+                      }}
+                    >
+                      Explore →
+                    </span>
+                  )}
+                </>
+              );
+              return s.to ? (
+                <Link
+                  key={s.code}
+                  id={`trips-${s.slug}`}
+                  to={s.to}
+                  className="service-card"
+                  style={cardStyle}
                 >
-                  {s.code}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: 600,
-                    fontSize: 22,
-                    color: "var(--teal-800)",
-                  }}
-                >
-                  {s.name}
-                </span>
-                <span
-                  style={{
-                    fontSize: 15,
-                    lineHeight: 1.55,
-                    color: "var(--ink-600)",
-                  }}
-                >
-                  {s.blurb}
-                </span>
-              </div>
-            ))}
+                  {inner}
+                </Link>
+              ) : (
+                <div key={s.code} id={`trips-${s.slug}`} style={cardStyle}>
+                  {inner}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

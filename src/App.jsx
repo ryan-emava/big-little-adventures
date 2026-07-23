@@ -5,6 +5,8 @@ import Home from "./components/Home.jsx";
 import TripPage from "./components/TripPage.jsx";
 import ClientTripsPage from "./components/ClientTripsPage.jsx";
 import DisneyParksPage from "./components/DisneyParksPage.jsx";
+import FamilyCruisesPage from "./components/FamilyCruisesPage.jsx";
+import BeachResortsPage from "./components/BeachResortsPage.jsx";
 import FaqPage from "./components/FaqPage.jsx";
 import PrivacyPage from "./components/PrivacyPage.jsx";
 import TermsPage from "./components/TermsPage.jsx";
@@ -17,6 +19,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/trips/disney" element={<DisneyParksPage />} />
+        <Route path="/trips/cruises" element={<FamilyCruisesPage />} />
+        <Route path="/trips/beach" element={<BeachResortsPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/client/:clientId/trips" element={<ClientTripsPage />} />
         <Route path="/client/:clientId/trips/:guid" element={<TripPage />} />

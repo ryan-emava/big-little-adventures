@@ -31,6 +31,19 @@ a:hover {
   color: var(--coral-500) !important;
 }
 
+/* Clickable service cards (home #trips section) lift on hover */
+.service-card {
+  transition: transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px -14px rgba(13, 71, 80, 0.28);
+}
+.service-card:hover .service-card-cta {
+  color: var(--coral-700);
+}
+
 /* Trips dropdown items */
 #main-nav .nav-dropdown-link {
   transition: background var(--duration-fast) var(--ease-standard),

@@ -15,8 +15,8 @@ const NAV_LINKS = [
 // section (ids set in Home.jsx).
 const TRIPS_MENU = [
   { label: "Disney & parks", href: "/trips/disney" },
-  { label: "Family cruises", href: "/#trips-cruises" },
-  { label: "Beach & all-inclusive", href: "/#trips-beach" },
+  { label: "Family cruises", href: "/trips/cruises" },
+  { label: "Beach & all-inclusive", href: "/trips/beach" },
 ];
 
 const WORDMARK_SIZE = 26;
@@ -25,6 +25,8 @@ const WORDMARK_SIZE = 26;
 // to the whole #trips section; the menu deep-links to individual categories.
 function TripsNav() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const tripsActive = location.pathname.startsWith("/trips");
 
   return (
     <div
@@ -40,9 +42,10 @@ function TripsNav() {
         className="nav-link"
         aria-haspopup="true"
         aria-expanded={open}
+        aria-current={tripsActive ? "page" : undefined}
         onFocus={() => setOpen(true)}
         style={{
-          color: "var(--teal-800)",
+          color: tripsActive ? "var(--coral-500)" : "var(--teal-800)",
           textDecoration: "none",
           display: "inline-flex",
           alignItems: "center",
@@ -88,25 +91,31 @@ function TripsNav() {
               flexDirection: "column",
             }}
           >
-            {TRIPS_MENU.map((m) => (
-              <Link
-                key={m.href}
-                to={m.href}
-                className="nav-dropdown-link"
-                onClick={() => setOpen(false)}
-                style={{
-                  display: "block",
-                  padding: "10px 14px",
-                  borderRadius: 10,
-                  color: "var(--teal-800)",
-                  textDecoration: "none",
-                  fontSize: 15,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {m.label}
-              </Link>
-            ))}
+            {TRIPS_MENU.map((m) => {
+              const active = location.pathname === m.href;
+              return (
+                <Link
+                  key={m.href}
+                  to={m.href}
+                  className="nav-dropdown-link"
+                  aria-current={active ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  style={{
+                    display: "block",
+                    padding: "10px 14px",
+                    borderRadius: 10,
+                    color: active ? "var(--coral-500)" : "var(--teal-800)",
+                    fontWeight: active ? 700 : 500,
+                    background: active ? "var(--peach-100)" : "transparent",
+                    textDecoration: "none",
+                    fontSize: 15,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {m.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}
