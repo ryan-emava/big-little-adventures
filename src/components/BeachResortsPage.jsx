@@ -3,6 +3,8 @@ import SiteFooter from "./SiteFooter.jsx";
 import { usePageTitle } from "../lib/usePageTitle.js";
 import { Card, CardSection, CategoryHero, FaqStrip } from "./TripCategoryUI.jsx";
 import TripRequestForm, { TRIP_TYPE_BY_SLUG } from "./TripRequestForm.jsx";
+import beachHeroJpg from "../assets/beach-hero.jpg";
+import beachHeroWebp from "../assets/beach-hero.webp";
 
 const TRIP = "beach";
 
@@ -87,6 +89,11 @@ export default function BeachResortsPage() {
 
       <CategoryHero
         stamp="BEACH & ALL-INCLUSIVE"
+        image={{
+          jpg: beachHeroJpg,
+          webp: beachHeroWebp,
+          alt: "Palm trees and turquoise water at a Caribbean beach resort.",
+        }}
         heading={
           <>
             Toes in the sand, wallet{" "}

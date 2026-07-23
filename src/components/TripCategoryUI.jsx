@@ -213,7 +213,7 @@ export function CategoryHero({ stamp, heading, image, children }) {
             {textCol}
             <div
               style={{
-                height: 420,
+                aspectRatio: "4 / 3",
                 borderRadius: 22,
                 overflow: "hidden",
                 boxShadow: "0 18px 44px rgba(15,92,102,0.16)",
@@ -224,6 +224,7 @@ export function CategoryHero({ stamp, heading, image, children }) {
                 webp={image.webp}
                 alt={image.alt}
                 radius={22}
+                objectPosition={image.position || "center"}
                 priority
               />
             </div>

@@ -17,6 +17,7 @@ export default function ImageSlot({
   shape = "rounded",
   radius = 22,
   priority = false,
+  objectPosition = "center",
   placeholder = "Drop an image",
 }) {
   const borderRadius = shape === "circle" ? "50%" : radius;
@@ -26,6 +27,7 @@ export default function ImageSlot({
       width: "100%",
       height: "100%",
       objectFit: "cover",
+      objectPosition,
       borderRadius,
       display: "block",
     };

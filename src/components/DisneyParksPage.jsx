@@ -3,6 +3,8 @@ import SiteFooter from "./SiteFooter.jsx";
 import { usePageTitle } from "../lib/usePageTitle.js";
 import { Card, CardSection, CategoryHero, FaqStrip } from "./TripCategoryUI.jsx";
 import TripRequestForm, { TRIP_TYPE_BY_SLUG } from "./TripRequestForm.jsx";
+import disneyHeroJpg from "../assets/disney-hero.jpg";
+import disneyHeroWebp from "../assets/disney-hero.webp";
 
 const TRIP = "disney";
 
@@ -86,6 +88,11 @@ export default function DisneyParksPage() {
 
       <CategoryHero
         stamp="DISNEY & PARKS"
+        image={{
+          jpg: disneyHeroJpg,
+          webp: disneyHeroWebp,
+          alt: "Cinderella Castle at Walt Disney World's Magic Kingdom.",
+        }}
         heading={
           <>
             The parks, planned around your{" "}

@@ -72,13 +72,7 @@ const LINES = [
     tag: "Relaxed & scenic",
     blurb:
       "A calmer, elegant feel with fantastic itineraries — a favorite for Alaska and multigenerational trips.",
-  },
-  {
-    name: "…and more",
-    tag: "Whatever fits",
-    blurb:
-      "Celebrity, MSC, Holland America, Virgin Voyages and beyond — we'll match the line to your family, not the other way around.",
-  },
+  }
 ];
 
 const WHY = [
