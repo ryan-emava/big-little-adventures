@@ -1,26 +1,23 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import Button from "../ds/Button.jsx";
 
-export default function SiteHeader({
-  wordmarkSize = 26,
-  littleRatio = 1,
-  homeHref = "#",
-  ctaHref = "#request",
-  ctaLabel = "Plan my trip",
-  links = [
-    { label: "Trips", href: "#trips" },
-    { label: "How it works", href: "#how" },
-    { label: "About", href: "#about" },
-  ],
-}) {
+// Single source of truth for the site header. Rendered identically on every
+// page — the nav does not change based on route. In-page section links use
+// absolute "/#id" targets so they work from any route (they land on the home
+// page and scroll to the section); on the home page itself they scroll in place.
+const NAV_LINKS = [
+  { label: "Trips", href: "/#trips" },
+  { label: "How it works", href: "/#how" },
+  { label: "About", href: "/#about" },
+];
+
+const WORDMARK_SIZE = 26;
+
+export default function SiteHeader() {
   const location = useLocation();
-  const isHome = location.pathname === "/";
-  const big = wordmarkSize;
-  // "big" must never be smaller than "little"
-  const ratio = Math.min(littleRatio, 1);
-  const bigPx = big;
-  const littlePx = Math.round(big * ratio);
-  const capsPx = Math.max(9, Math.round(big * 0.34));
+  const bigPx = WORDMARK_SIZE;
+  const littlePx = WORDMARK_SIZE;
+  const capsPx = Math.max(9, Math.round(WORDMARK_SIZE * 0.34));
 
   return (
     <div
@@ -39,7 +36,7 @@ export default function SiteHeader({
         fontFamily: "var(--font-body)",
       }}
     >
-      <a href={homeHref} style={{ textDecoration: "none" }}>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <div
           style={{
             display: "flex",
@@ -84,7 +81,7 @@ export default function SiteHeader({
             ADVENTURES
           </div>
         </div>
-      </a>
+      </Link>
       <div
         data-nav-links
         style={{
@@ -98,20 +95,33 @@ export default function SiteHeader({
           color: "var(--teal-800)",
         }}
       >
-        {isHome &&
-          links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="nav-link"
-              style={{ color: "var(--teal-800)", textDecoration: "none" }}
-            >
-              {l.label}
-            </a>
-          ))}
-        <a href={ctaHref} style={{ textDecoration: "none" }}>
-          <Button size="sm">{ctaLabel}</Button>
-        </a>
+        {NAV_LINKS.map((l) => (
+          <Link
+            key={l.href}
+            to={l.href}
+            className="nav-link"
+            style={{ color: "var(--teal-800)", textDecoration: "none" }}
+          >
+            {l.label}
+          </Link>
+        ))}
+        <Link
+          to="/faq"
+          className="nav-link"
+          aria-current={location.pathname === "/faq" ? "page" : undefined}
+          style={{
+            color:
+              location.pathname === "/faq"
+                ? "var(--coral-500)"
+                : "var(--teal-800)",
+            textDecoration: "none",
+          }}
+        >
+          FAQ
+        </Link>
+        <Link to="/#request" style={{ textDecoration: "none" }}>
+          <Button size="sm">Plan my trip</Button>
+        </Link>
       </div>
     </div>
   );

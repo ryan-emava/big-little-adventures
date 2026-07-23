@@ -1,8 +1,8 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 
-// Mounts the /api/quotes serverless function into the Vite dev server so
-// `npm run dev` exercises the same handler that runs on Vercel in production.
+// Mounts the serverless functions into the Vite dev server so `npm run dev`
+// exercises the same handlers that run on Vercel in production.
 function devApi(env) {
   return {
     name: "dev-api",
@@ -19,7 +19,6 @@ function devApi(env) {
       ]) {
         if (env[key]) process.env[key] = env[key];
       }
-      const { default: handler } = await import("./api/quotes.js");
       const { default: trkitRegisterHandler } = await import(
         "./api/trkit-register.js"
       );
@@ -40,15 +39,6 @@ function devApi(env) {
         });
       mount("/api/trip-intent", tripIntentHandler);
       mount("/api/trip-request", tripRequestHandler);
-      server.middlewares.use("/api/quotes", (req, res) => {
-        Promise.resolve(handler(req, res)).catch((err) => {
-          res.statusCode = 500;
-          res.setHeader("content-type", "application/json");
-          res.end(
-            JSON.stringify({ error: String((err && err.message) || err) }),
-          );
-        });
-      });
       server.middlewares.use("/api/trkit-register", (req, res) => {
         Promise.resolve(trkitRegisterHandler(req, res)).catch((err) => {
           res.statusCode = 500;

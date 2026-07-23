@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { contact, business, social } from "../lib/contact.js";
 
-export default function SiteFooter({ wordmarkSize = 26, littleRatio = 1 }) {
-  const big = Math.round(wordmarkSize * 0.85);
-  // "big" must never be smaller than "little"
-  const ratio = Math.min(littleRatio, 1);
-  const footBigPx = big;
-  const footLittlePx = Math.round(big * ratio);
+// Single source of truth for the site footer. Rendered identically on every
+// page — kept prop-free so it can never drift page to page.
+const WORDMARK_SIZE = 26;
+
+export default function SiteFooter() {
+  const footBigPx = Math.round(WORDMARK_SIZE * 0.85);
+  const footLittlePx = footBigPx;
 
   return (
     <div

@@ -46,10 +46,11 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
     totalPriceValue > 0
       ? formatMoney(Math.max(0, totalPriceValue - payInDestinationValue))
       : pricing?.payments?.balanceDue || pricing.totalPrice
-  const addonList = addons.map(a => `${a.title} | ${a.description}`).join('\n').split('\n').map(line => {
-    const [title, ...rest] = line.split('|')
-    return { title: (title || '').trim(), desc: rest.join('|').trim() }
-  })
+  // Only render add-ons that actually have a title (an empty list must leave
+  // the whole section — heading included — off the page).
+  const addonList = addons
+    .filter((a) => a && a.title)
+    .map((a) => ({ title: a.title.trim(), desc: (a.description || '').trim() }))
 
   useEffect(() => {
     if (!tripGuid || !overview.destination || !overview.preparedByLine) return
@@ -142,7 +143,7 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
 
   return (
     <div style={{ background: 'var(--cream-100)', minHeight: '100vh', overflowX: 'clip' }}>
-      <SiteHeader homeHref="/" ctaHref="/#request" links={[]} />
+      <SiteHeader />
 
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '48px 24px 72px', display: 'flex', flexDirection: 'column', gap: 24 }}>
 
@@ -462,7 +463,6 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
             </div>
             <div className="cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
                 {addonList.map((addon, i) => (
-                addon.title && (
                   <div key={i} style={{ background: 'var(--white)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-card-soft)', padding: 24 }}>
                     <div style={{
                       fontFamily: 'var(--font-display)',
@@ -482,7 +482,6 @@ export default function QuoteDetail({ trip, clientId, tripGuid }) {
                       </div>
                     )}
                   </div>
-                )
               ))}
             </div>
           </>

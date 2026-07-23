@@ -75,9 +75,6 @@ a:hover {
   #about-grid p {
     text-align: left;
   }
-  #quotes-grid {
-    grid-template-columns: 1fr !important;
-  }
   [data-section] {
     padding-left: 24px !important;
     padding-right: 24px !important;
@@ -140,6 +137,14 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
+/* ---- FAQ accordion ---- */
+.faq-summary::-webkit-details-marker { display: none; }
+.faq-chevron {
+  transition: transform var(--duration-fast, 160ms) var(--ease-standard, ease);
+}
+.faq-item[open] .faq-chevron { transform: rotate(180deg); }
+.faq-summary:hover { color: var(--coral-500); }
+
 /* ---- Hotel photo strip (vacation-snapshot look) ---- */
 .photo-strip {
   display: flex;
@@ -173,6 +178,13 @@ textarea:focus-visible {
   border-radius: 6px;
 }
 @media (max-width: 640px) {
+  .photo-strip {
+    gap: 12px;
+    padding: 8px 4px 12px;
+  }
+  .photo-frame {
+    padding: 5px 5px 10px;
+  }
   .photo-frame img {
     height: 120px;
     min-width: 90px;
@@ -185,35 +197,127 @@ textarea:focus-visible {
   }
 }
 
-/* Lightbox */
+/* Lightbox (mobile-first) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(13, 71, 80, 0.85); /* teal-900 scrim */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 10px calc(12px + env(safe-area-inset-bottom, 0px));
+}
+.lightbox-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(920px, 96vw);
+}
+.lightbox-stage {
+  position: relative;
+  max-width: 96vw;
+  touch-action: pan-y; /* let vertical scroll pass; horizontal = swipe */
+}
+.lightbox-frame {
+  background: var(--white);
+  padding: 8px 8px 12px;
+  border-radius: 14px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  transform: rotate(-0.5deg);
+}
+.lightbox-img {
+  display: block;
+  margin: 0 auto; /* centered when the caption is wider than the image */
+  max-width: min(860px, 92vw);
+  max-height: 56vh;
+  max-height: 56dvh; /* stable against iOS URL-bar collapse */
+  border-radius: 8px;
+  object-fit: contain;
+}
+.lightbox-caption {
+  margin-top: 8px;
+  text-align: center;
+  font-family: var(--font-script);
+  font-size: 18px;
+  color: var(--color-accent);
+}
+/* Arrows overlay the photo edges — no horizontal space stolen from the image */
 .lightbox-arrow {
-  width: 44px;
-  height: 44px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: none;
-  background: var(--teal-800);
+  background: rgba(15, 92, 102, 0.72); /* translucent teal-800 */
   color: #fff;
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1;
   cursor: pointer;
-  flex-shrink: 0;
   transition: background var(--duration-fast) var(--ease-standard);
 }
 .lightbox-arrow:hover {
   background: var(--coral-500);
 }
+.lightbox-arrow-prev {
+  left: 14px;
+}
+.lightbox-arrow-next {
+  right: 14px;
+}
 .lightbox-thumbs {
   display: flex;
-  gap: 8px;
-  max-width: min(920px, 94vw);
+  gap: 10px;
+  max-width: min(920px, 96vw);
   overflow-x: auto;
-  padding: 4px;
+  padding: 6px;
+  -webkit-overflow-scrolling: touch;
 }
-@media (max-width: 640px) {
-  .lightbox-arrow {
-    width: 38px;
-    height: 38px;
+@media (min-width: 641px) {
+  .lightbox {
+    gap: 16px;
+    padding: 24px 16px;
+  }
+  .lightbox-frame {
+    padding: 10px 10px 16px;
+  }
+  .lightbox-img {
+    max-height: 62vh;
+    max-height: 62dvh;
+  }
+  .lightbox-caption {
+    margin-top: 10px;
     font-size: 22px;
+  }
+  /* On desktop, float the arrows just outside the frame */
+  .lightbox-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 26px;
+    background: var(--teal-800);
+  }
+  .lightbox-arrow-prev {
+    left: -56px;
+  }
+  .lightbox-arrow-next {
+    right: -56px;
+  }
+}
+/* If the desktop viewport can't fit outside arrows, tuck them back in */
+@media (min-width: 641px) and (max-width: 1020px) {
+  .lightbox-arrow-prev {
+    left: 10px;
+  }
+  .lightbox-arrow-next {
+    right: 10px;
+  }
+  .lightbox-arrow {
+    background: rgba(15, 92, 102, 0.72);
   }
 }
 

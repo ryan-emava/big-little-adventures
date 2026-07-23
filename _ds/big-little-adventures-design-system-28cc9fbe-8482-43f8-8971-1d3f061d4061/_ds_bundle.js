@@ -503,7 +503,7 @@
   try {
     (() => {
       function Input({
-        placeholder = "you@email.com",
+        placeholder = "be@paradise.com",
         type = "email",
         icon,
         onSubmit,
@@ -1159,7 +1159,7 @@
                       React.Fragment,
                       null,
                       /*#__PURE__*/ React.createElement(Input, {
-                        placeholder: "you@email.com",
+                        placeholder: "be@paradise.com",
                         onSubmit: () => setSubmitted(true),
                       }),
                       /*#__PURE__*/ React.createElement(

@@ -10,7 +10,7 @@ export default function NotFound() {
 
   return (
     <div style={{ background: 'var(--cream-100)', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <SiteHeader homeHref="/" ctaHref="/#request" links={[]} />
+      <SiteHeader />
       <div
         style={{
           flex: 1,

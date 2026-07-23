@@ -8,7 +8,7 @@ export default function LegalPage({ title, updated, children }) {
 
   return (
     <div style={{ background: 'var(--cream-100)', minHeight: '100vh' }}>
-      <SiteHeader homeHref="/" ctaHref="/#request" links={[]} />
+      <SiteHeader />
       <div style={{ maxWidth: 760, margin: '0 auto', padding: '48px 24px 80px' }}>
         <div
           style={{

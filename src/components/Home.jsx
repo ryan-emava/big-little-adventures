@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import Button from "../ds/Button.jsx";
 import Barcode from "../ds/Barcode.jsx";
 import { StampTag } from "../ds/Badge.jsx";
 import ImageSlot from "./ImageSlot.jsx";
 import SiteHeader from "./SiteHeader.jsx";
 import SiteFooter from "./SiteFooter.jsx";
-import { useQuotes } from "../lib/useQuotes.js";
 import { usePageTitle } from "../lib/usePageTitle.js";
 import sunImg from "../assets/sun.png";
 import heroJpg from "../assets/hero.jpg";
@@ -19,7 +17,7 @@ const services = [
     code: "MCO",
     name: "Disney & parks",
     blurb:
-      "Park days, dining plans, Genie+ strategy — engineered around nap schedules.",
+      "Park days, dining plans, Genie+ strategy, engineered around nap schedules.",
   },
   {
     code: "SEA",
@@ -63,21 +61,6 @@ const steps = [
   },
 ];
 
-// Fallback shown while quotes load or if the API is unavailable. The live
-// testimonials come from Airtable via /api/quotes (rows marked "Featured").
-const DEFAULT_QUOTES = [
-  {
-    text: "Our cruise had three kids under six and zero meltdowns at check-in. Katie thought of things we didn’t know to ask about.",
-    who: "THE OKAFOR FAMILY · CARIBBEAN 2026",
-    slug: null,
-  },
-  {
-    text: "Same price as booking it ourselves, except someone else did the six hours of comparing. Never going back.",
-    who: "THE BECKER FAMILY · MAUI 2026",
-    slug: null,
-  },
-];
-
 const inputStyle = {
   fontFamily: "var(--font-body)",
   fontSize: 16,
@@ -97,11 +80,59 @@ const labelStyle = {
   color: "var(--ink-600)", // ink-400 fails AA contrast for small text on white
 };
 
-export default function Home({
-  wordmarkSize = 26,
-  littleRatio = 1,
-  showSunburst = false,
-}) {
+const errorTextStyle = {
+  fontFamily: "var(--font-body)",
+  fontSize: 12.5,
+  color: "var(--color-danger)",
+};
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// A gentle floor for Trip Details — enough to nudge past a one-word "Disney".
+const NOTES_MIN = 15;
+
+// Trip Details placeholder swaps to match the selected Dream Trip — just a
+// friendly prompt, never touches whatever the user has already typed.
+const NOTES_DEFAULT_PLACEHOLDER =
+  "Dates, budget, must-dos, nap schedules — the more the better.";
+const NOTES_PLACEHOLDERS = {
+  "Disney & theme parks":
+    "Which parks? Rope-drop rides or pool afternoons? Character breakfast a must? How old's the crew?",
+  Cruise:
+    "Where to — Caribbean, Alaska, the Med? Sailing from where? Balcony or bust? Sea days or shore excursions?",
+  "Beach resort / all-inclusive":
+    "Swim-up bar or kids' club? Adults-only or bring-everyone? Which stretch of sand are we dreaming of?",
+  "Flights + hotel package":
+    "Where to, and roughly when? Nonstop or fine with a layover? City lights or somewhere quieter?",
+  "Not sure yet — surprise us":
+    "Give us a vibe — beach, mountains, big city? Chaos-with-kids or blissful quiet? Budget ballpark?",
+};
+
+// Red-border an input when its field has an error, otherwise leave it as-is.
+const withError = (base, invalid) =>
+  invalid ? { ...base, borderColor: "var(--color-danger)" } : base;
+
+// Labeled field wrapper: consistent label, a coral "required" marker, and an
+// inline error message. The CRM requires every field, so the form surfaces that
+// up front instead of letting a submission fail silently server-side.
+function Field({ label, htmlFor, required, error, children }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <label htmlFor={htmlFor} style={labelStyle}>
+        {label}
+        {required && <span style={{ color: "var(--coral-500)" }}> *</span>}
+      </label>
+      {children}
+      {error && (
+        <span role="alert" style={errorTextStyle}>
+          {error}
+        </span>
+      )}
+    </div>
+  );
+}
+
+export default function Home({ showSunburst = false }) {
   usePageTitle("");
   const [form, setForm] = useState({
     name: "",
@@ -113,15 +144,41 @@ export default function Home({
   });
   const [formState, setFormState] = useState("idle"); // idle | sending | sent | error
   const [formError, setFormError] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
   const sent = formState === "sent";
-  const setField = (key) => (e) =>
-    setForm((f) => ({ ...f, [key]: e.target.value }));
+  const setField = (key) => (e) => {
+    const { value } = e.target;
+    setForm((f) => ({ ...f, [key]: value }));
+    // Clear a field's error as soon as the user starts fixing it.
+    setFieldErrors((fe) => (fe[key] ? { ...fe, [key]: undefined } : fe));
+  };
+
+  // The CRM requires all of these, so validate them here and point at the exact
+  // field rather than letting the submission fail server-side.
+  const validate = () => {
+    const errors = {};
+    if (!form.name.trim()) errors.name = "Please add your name.";
+    if (!EMAIL_RE.test(form.email.trim()))
+      errors.email = "Add a valid email so Katie can reply.";
+    if (!form.party.trim()) errors.party = "Let Katie know who's going.";
+    const notes = form.notes.trim();
+    if (!notes) {
+      errors.notes = "Don't leave Katie hanging — give her a little to dream on! ✨";
+    } else if (notes.length < NOTES_MIN) {
+      errors.notes = "Ooh, tell us more — dates, budget, or must-dos. Even a sentence helps!";
+    }
+    return errors;
+  };
 
   const submitRequest = async () => {
-    if (!form.name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
-      setFormError("Please add your name and a valid email so Katie can reply.");
+    const errors = validate();
+    if (Object.keys(errors).length) {
+      setFieldErrors(errors);
+      setFormError(null);
+      document.getElementById(`tr-${Object.keys(errors)[0]}`)?.focus();
       return;
     }
+    setFieldErrors({});
     setFormState("sending");
     setFormError(null);
     try {
@@ -130,32 +187,19 @@ export default function Home({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!r.ok) {
-        const body = await r.json().catch(() => ({}));
-        throw new Error(body.error || `Request failed (${r.status})`);
+      if (r.ok) {
+        setFormState("sent");
+        return;
       }
-      setFormState("sent");
-    } catch (err) {
-      setFormState("error");
-      setFormError(
-        err.message.includes("valid email") || err.message.includes("name")
-          ? err.message
-          : "Something went wrong sending your request. Please try again in a moment.",
-      );
+    } catch {
+      // Network error — fall through to the generic message below.
     }
+    setFormState("error");
+    setFormError(
+      "Something went wrong sending your request. Please try again in a moment.",
+    );
   };
 
-  const { quotes: apiQuotes } = useQuotes();
-
-  const featured = apiQuotes?.filter((q) => q.featured);
-  const testimonials =
-    featured && featured.length
-      ? featured.map((q) => ({
-          text: q.text,
-          who: `${q.author}${q.trip ? ` · ${q.trip}` : ""}`.toUpperCase(),
-          slug: q.slug,
-        }))
-      : DEFAULT_QUOTES;
 
   return (
     <div
@@ -169,7 +213,7 @@ export default function Home({
       }}
     >
       {/* Nav */}
-      <SiteHeader wordmarkSize={wordmarkSize} littleRatio={littleRatio} />
+      <SiteHeader />
 
       {/* Hero */}
       <div
@@ -605,89 +649,6 @@ export default function Home({
         </div>
       </div>
 
-      {/* Testimonials */}
-      <div
-        data-section
-        style={{ padding: "72px 56px", background: "var(--white)" }}
-      >
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div
-            id="quotes-grid"
-            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}
-          >
-            {testimonials.map((q) => {
-              const cardStyle = {
-                background: "var(--cream-050)",
-                borderRadius: 22,
-                padding: 32,
-                display: "flex",
-                flexDirection: "column",
-                gap: 14,
-                textDecoration: "none",
-              };
-              const inner = (
-                <>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-script)",
-                      fontSize: 30,
-                      color: "var(--coral-500)",
-                      lineHeight: 1,
-                    }}
-                  >
-                    "
-                  </span>
-                  <span
-                    style={{
-                      fontSize: 17,
-                      lineHeight: 1.65,
-                      color: "var(--ink-900)",
-                      marginTop: -18,
-                    }}
-                  >
-                    {q.text}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: 600,
-                      fontSize: 14,
-                      letterSpacing: "0.1em",
-                      color: "var(--teal-800)",
-                    }}
-                  >
-                    {q.who}
-                  </span>
-                </>
-              );
-              return q.slug ? (
-                <Link key={q.slug} to={`/quotes/${q.slug}`} style={cardStyle}>
-                  {inner}
-                </Link>
-              ) : (
-                <div key={q.who} style={cardStyle}>
-                  {inner}
-                </div>
-              );
-            })}
-          </div>
-          <div style={{ textAlign: "center", marginTop: 32 }}>
-            <Link
-              to="/quotes"
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 600,
-                fontSize: 16,
-                color: "var(--coral-500)",
-                textDecoration: "none",
-              }}
-            >
-              Read all reviews →
-            </Link>
-          </div>
-        </div>
-      </div>
-
       {/* Inquiry form */}
       <div id="request" data-section style={{ padding: "80px 56px" }}>
         <div
@@ -794,7 +755,7 @@ export default function Home({
               }}
             >
               Tell us about your crew and the trip you're picturing. Katie
-              replies within one business day with ideas and honest pricing — no
+              replies within one business day with ideas and honest pricing. No
               obligation, no spam.
             </p>
             <div style={{ marginTop: "auto" }}>
@@ -817,6 +778,9 @@ export default function Home({
                 >
                   Start your trip request
                 </h3>
+                <p style={{ margin: "-4px 0 0", fontSize: 13.5, color: "var(--ink-600)" }}>
+                  A few details so Katie can come back with real ideas — every field helps.
+                </p>
                 <div
                   id="request-fields"
                   style={{
@@ -825,36 +789,29 @@ export default function Home({
                     gap: 16,
                   }}
                 >
-                  <div
-                    style={{ display: "flex", flexDirection: "column", gap: 6 }}
-                  >
-                    <label htmlFor="tr-name" style={labelStyle}>YOUR NAME</label>
+                  <Field label="YOUR NAME" htmlFor="tr-name" required error={fieldErrors.name}>
                     <input
                       id="tr-name"
                       type="text"
                       placeholder="Juana Getaway"
                       value={form.name}
                       onChange={setField("name")}
-                      style={inputStyle}
+                      aria-invalid={!!fieldErrors.name}
+                      style={withError(inputStyle, fieldErrors.name)}
                     />
-                  </div>
-                  <div
-                    style={{ display: "flex", flexDirection: "column", gap: 6 }}
-                  >
-                    <label htmlFor="tr-email" style={labelStyle}>EMAIL</label>
+                  </Field>
+                  <Field label="EMAIL" htmlFor="tr-email" required error={fieldErrors.email}>
                     <input
                       id="tr-email"
                       type="email"
-                      placeholder="you@email.com"
+                      placeholder="catchme@paradise.com"
                       value={form.email}
                       onChange={setField("email")}
-                      style={inputStyle}
+                      aria-invalid={!!fieldErrors.email}
+                      style={withError(inputStyle, fieldErrors.email)}
                     />
-                  </div>
-                  <div
-                    style={{ display: "flex", flexDirection: "column", gap: 6 }}
-                  >
-                    <label htmlFor="tr-triptype" style={labelStyle}>DREAM TRIP</label>
+                  </Field>
+                  <Field label="DREAM TRIP" htmlFor="tr-triptype">
                     <select
                       id="tr-triptype"
                       value={form.tripType}
@@ -867,39 +824,37 @@ export default function Home({
                       <option>Flights + hotel package</option>
                       <option>Not sure yet — surprise us</option>
                     </select>
-                  </div>
-                  <div
-                    style={{ display: "flex", flexDirection: "column", gap: 6 }}
-                  >
-                    <label htmlFor="tr-party" style={labelStyle}>WHO'S FLYING?</label>
+                  </Field>
+                  <Field label="WHO'S GOING?" htmlFor="tr-party" required error={fieldErrors.party}>
                     <input
                       id="tr-party"
                       type="text"
                       placeholder="2 adults, 2 kids (4 &amp; 7)"
                       value={form.party}
                       onChange={setField("party")}
-                      style={inputStyle}
+                      aria-invalid={!!fieldErrors.party}
+                      style={withError(inputStyle, fieldErrors.party)}
                     />
-                  </div>
+                  </Field>
                 </div>
-                <div
-                  style={{ display: "flex", flexDirection: "column", gap: 6 }}
-                >
-                  <label htmlFor="tr-notes" style={labelStyle}>ANYTHING ELSE?</label>
+                <Field label="TRIP DETAILS" htmlFor="tr-notes" required error={fieldErrors.notes}>
                   <textarea
                     id="tr-notes"
-                    placeholder="Dates, budget, must-dos, nap schedules — the more the better."
+                    placeholder={
+                      NOTES_PLACEHOLDERS[form.tripType] || NOTES_DEFAULT_PLACEHOLDER
+                    }
                     value={form.notes}
                     onChange={setField("notes")}
                     rows={3}
+                    aria-invalid={!!fieldErrors.notes}
                     style={{
-                      ...inputStyle,
+                      ...withError(inputStyle, fieldErrors.notes),
                       borderRadius: 18,
                       padding: "14px 18px",
                       resize: "vertical",
                     }}
                   />
-                </div>
+                </Field>
                 {/* Honeypot — hidden from humans, bots fill it and get discarded */}
                 <input
                   type="text"
@@ -918,9 +873,6 @@ export default function Home({
                   >
                     {formState === "sending" ? "Sending…" : "Send trip request ✈"}
                   </Button>
-                  <span style={{ fontSize: 13.5, color: "var(--ink-400)" }}>
-                    No spam. Just your trip plan.
-                  </span>
                 </div>
                 {formError && (
                   <p style={{ margin: 0, fontSize: 14, color: "var(--color-danger)" }}>
@@ -971,7 +923,7 @@ export default function Home({
       </div>
 
       {/* Footer */}
-      <SiteFooter wordmarkSize={wordmarkSize} littleRatio={littleRatio} />
+      <SiteFooter />
     </div>
   );
 }

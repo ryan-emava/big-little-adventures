@@ -12,7 +12,13 @@ export default function Barcode({ code = "BLA · EST · 2026", style }) {
   return (
     <div style={{ ...style }}>
       <div
-        style={{ display: "flex", gap: 2, alignItems: "flex-end", height: 44 }}
+        style={{
+          display: "flex",
+          gap: 2,
+          alignItems: "flex-end",
+          justifyContent: "center",
+          height: 44,
+        }}
       >
         {bars.map((w, i) => (
           <span

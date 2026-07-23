@@ -53,10 +53,20 @@ export default async function handler(req, res) {
     })
 
     if (!response.ok) {
-      return json(res, 502, { error: "CRM request failed", status: response.status })
+      // Capture the upstream body so a 502 is diagnosable instead of opaque.
+      const detail = await response.text().catch(() => "")
+      console.error(
+        `trip-request upstream failed: ${response.status} ${detail.slice(0, 1000)}`,
+      )
+      return json(res, 502, {
+        error: "CRM request failed",
+        status: response.status,
+        detail: detail.slice(0, 500),
+      })
     }
     return json(res, 202, { ok: true })
   } catch (error) {
+    console.error("trip-request handler error:", error)
     return json(res, 500, { error: String(error?.message || error) })
   }
 }

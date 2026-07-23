@@ -29,7 +29,7 @@ export default function ClientTripsPage() {
         overflowX: "clip",
       }}
     >
-      <SiteHeader homeHref="/" ctaHref="/#request" />
+      <SiteHeader />
 
       <div
         style={{ padding: "64px 56px 80px", maxWidth: 1100, margin: "0 auto" }}

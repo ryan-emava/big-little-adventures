@@ -11,6 +11,7 @@ const TILTS = [-1.5, 1.2, -1, 1.6, -0.8]
 export default function HotelGallery({ photos = [], links = [], hotelName = '' }) {
   const [openIndex, setOpenIndex] = useState(null)
   const [loadedFull, setLoadedFull] = useState({}) // url -> true once full-res is cached
+  const [touchX, setTouchX] = useState(null)
   const open = openIndex != null
 
   // Preload the current photo and its neighbors so the thumb-first display
@@ -125,24 +126,10 @@ export default function HotelGallery({ photos = [], links = [], hotelName = '' }
           aria-modal="true"
           aria-label={`${hotelName} photo gallery`}
           onClick={close}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 100,
-            background: 'rgba(13, 71, 80, 0.82)', /* teal-900 scrim */
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 16,
-            padding: '24px 16px',
-          }}
+          className="lightbox"
         >
           {/* Top bar: counter + close */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{ display: 'flex', alignItems: 'center', gap: 16, width: 'min(920px, 94vw)', justifyContent: 'space-between' }}
-          >
+          <div onClick={(e) => e.stopPropagation()} className="lightbox-top">
             <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, letterSpacing: 'var(--tracking-widest)', color: 'var(--teal-100)' }}>
               PHOTO {String(openIndex + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}
             </span>
@@ -154,68 +141,61 @@ export default function HotelGallery({ photos = [], links = [], hotelName = '' }
                 fontFamily: 'var(--font-display)',
                 fontWeight: 700,
                 fontSize: 15,
-                width: 38,
-                height: 38,
+                width: 40,
+                height: 40,
                 borderRadius: '50%',
                 border: 'none',
                 background: 'var(--coral-500)',
                 color: '#fff',
                 cursor: 'pointer',
+                flexShrink: 0,
               }}
             >
               ✕
             </button>
           </div>
 
-          {/* Main image in a polaroid frame, arrows on either side */}
+          {/* Stage: polaroid frame with arrows overlaid on the photo edges;
+              swipe left/right to navigate on touch screens. */}
           <div
             onClick={(e) => e.stopPropagation()}
-            style={{ display: 'flex', alignItems: 'center', gap: 12, maxWidth: '94vw' }}
+            className="lightbox-stage"
+            onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
+            onTouchEnd={(e) => {
+              if (touchX == null) return
+              const dx = e.changedTouches[0].clientX - touchX
+              if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1)
+              setTouchX(null)
+            }}
           >
-            {photos.length > 1 && (
-              <button type="button" onClick={() => step(-1)} aria-label="Previous photo" className="lightbox-arrow">
-                ‹
-              </button>
-            )}
-            <div
-              style={{
-                background: 'var(--white)',
-                padding: '10px 10px 16px',
-                borderRadius: 14,
-                boxShadow: '0 24px 60px rgba(0,0,0,0.35)',
-                transform: 'rotate(-0.5deg)',
-              }}
-            >
+            <div className="lightbox-frame">
               {/* Thumb shows instantly (already cached from the strip); swaps
                   to full-res once the preloader has it. */}
               <img
                 key={current.url}
                 src={loadedFull[current.url] ? current.url : current.thumb}
                 alt={`${hotelName} photo ${openIndex + 1}`}
+                className="lightbox-img"
                 style={{
-                  display: 'block',
-                  // stay centered when the caption below is wider than the image
-                  margin: '0 auto',
-                  maxWidth: 'min(860px, 84vw)',
-                  maxHeight: '62vh',
-                  borderRadius: 8,
-                  objectFit: 'contain',
                   filter: loadedFull[current.url] ? 'none' : 'blur(0.5px)',
                   transition: 'filter 200ms ease',
                 }}
               />
-              <div style={{ marginTop: 10, textAlign: 'center', fontFamily: 'var(--font-script)', fontSize: 22, color: 'var(--color-accent)' }}>
-                {hotelName}
-              </div>
+              <div className="lightbox-caption">{hotelName}</div>
             </div>
             {photos.length > 1 && (
-              <button type="button" onClick={() => step(1)} aria-label="Next photo" className="lightbox-arrow">
-                ›
-              </button>
+              <>
+                <button type="button" onClick={() => step(-1)} aria-label="Previous photo" className="lightbox-arrow lightbox-arrow-prev">
+                  ‹
+                </button>
+                <button type="button" onClick={() => step(1)} aria-label="Next photo" className="lightbox-arrow lightbox-arrow-next">
+                  ›
+                </button>
+              </>
             )}
           </div>
 
-          {/* Thumbnail rail */}
+      {/* Thumbnail rail */}
           {photos.length > 1 && (
             <div
               onClick={(e) => e.stopPropagation()}
