@@ -1,15 +1,8 @@
-import { Link } from "react-router-dom";
 import SiteHeader from "./SiteHeader.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { usePageTitle } from "../lib/usePageTitle.js";
-import {
-  Card,
-  CardSection,
-  CategoryHero,
-  FaqStrip,
-  FinalCta,
-  tripRequestHref,
-} from "./TripCategoryUI.jsx";
+import { Card, CardSection, CategoryHero, FaqStrip } from "./TripCategoryUI.jsx";
+import TripRequestForm, { TRIP_TYPE_BY_SLUG } from "./TripRequestForm.jsx";
 
 const TRIP = "beach";
 
@@ -94,7 +87,6 @@ export default function BeachResortsPage() {
 
       <CategoryHero
         stamp="BEACH & ALL-INCLUSIVE"
-        trip={TRIP}
         heading={
           <>
             Toes in the sand, wallet{" "}
@@ -123,9 +115,9 @@ export default function BeachResortsPage() {
         footer={
           <>
             Somewhere else on the mood board — Turks & Caicos, the Bahamas, Hawaii?{" "}
-            <Link to={tripRequestHref(TRIP)} style={{ color: "var(--coral-500)", fontWeight: 600 }}>
+            <a href="#request" style={{ color: "var(--coral-500)", fontWeight: 600 }}>
               Tell us the vibe
-            </Link>{" "}
+            </a>{" "}
             and we'll find the spot.
           </>
         }
@@ -150,21 +142,7 @@ export default function BeachResortsPage() {
         timelines, and whether travel protection is worth it.
       </FaqStrip>
 
-      <FinalCta
-        trip={TRIP}
-        headline={
-          <>
-            Ready for some{" "}
-            <span style={{ fontFamily: "var(--font-script)", color: "var(--coral-400)", fontSize: 46 }}>
-              sunshine
-            </span>
-            ?
-          </>
-        }
-      >
-        Tell us who's coming and what "relaxing" looks like for your family. Katie
-        replies within one business day — free to ask, always.
-      </FinalCta>
+      <TripRequestForm defaultTripType={TRIP_TYPE_BY_SLUG[TRIP]} />
 
       <SiteFooter />
     </div>

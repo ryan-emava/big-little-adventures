@@ -31,6 +31,14 @@ a:hover {
   color: var(--coral-500) !important;
 }
 
+/* Category hero: two-column (text + photo) stacks on narrow screens */
+@media (max-width: 900px) {
+  .category-hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+}
+
 /* Clickable service cards (home #trips section) lift on hover */
 .service-card {
   transition: transform var(--duration-fast) var(--ease-standard),

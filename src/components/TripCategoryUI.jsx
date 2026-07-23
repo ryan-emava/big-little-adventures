@@ -1,15 +1,11 @@
 import { Link } from "react-router-dom";
 import Button from "../ds/Button.jsx";
 import { StampTag } from "../ds/Badge.jsx";
+import ImageSlot from "./ImageSlot.jsx";
 
 // Shared building blocks for the /trips/* category pages (Disney, Cruises,
 // Beach). Keeps the three pages visually in lockstep — each page supplies its
 // own copy, these render it identically.
-
-// Request-form link that pre-selects the Dream Trip select on the home page.
-// `trip` is a short slug (disney | cruise | beach) mapped back in Home.jsx.
-export const tripRequestHref = (trip) =>
-  trip ? `/?trip=${trip}#request` : "/#request";
 
 export const eyebrowStyle = {
   fontFamily: "var(--font-display)",
@@ -137,52 +133,57 @@ export function FaqStrip({ heading, children }) {
   );
 }
 
-// Teal closing band with a script-accented headline and the request CTA.
-export function FinalCta({ headline, trip, children }) {
-  return (
-    <div data-section style={{ padding: "0 56px 80px" }}>
-      <div
+// Left-aligned hero: stamp + script-accented headline + subcopy + two CTAs.
+// The primary CTA scrolls to the request form embedded lower on the same page.
+export function CategoryHero({ stamp, heading, image, children }) {
+  const textCol = (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: 22,
+        maxWidth: image ? 560 : 720,
+      }}
+    >
+      <StampTag>{stamp}</StampTag>
+      <h1
         style={{
-          maxWidth: 1100,
-          margin: "0 auto",
-          background: "var(--teal-800)",
-          borderRadius: 26,
-          padding: "56px 48px",
-          textAlign: "center",
-          color: "#fff",
+          fontFamily: "var(--font-display)",
+          fontWeight: 700,
+          fontSize: 58,
+          lineHeight: 1.06,
+          color: "var(--teal-800)",
+          margin: 0,
+          textWrap: "pretty",
         }}
       >
-        <h2
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: 700,
-            fontSize: 38,
-            margin: 0,
-          }}
-        >
-          {headline}
-        </h2>
-        <p
-          style={{
-            margin: "12px auto 26px",
-            maxWidth: 460,
-            fontSize: 17,
-            lineHeight: 1.6,
-            color: "var(--teal-100)",
-          }}
-        >
-          {children}
-        </p>
-        <Link to={tripRequestHref(trip)} style={{ textDecoration: "none" }}>
-          <Button size="lg">Start a trip request ✈</Button>
+        {heading}
+      </h1>
+      <p
+        style={{
+          fontSize: 19,
+          lineHeight: 1.6,
+          color: "var(--ink-600)",
+          margin: 0,
+          maxWidth: 560,
+        }}
+      >
+        {children}
+      </p>
+      <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+        <a href="#request" style={{ textDecoration: "none" }}>
+          <Button size="lg">Start a trip request</Button>
+        </a>
+        <Link to="/#how" style={{ textDecoration: "none" }}>
+          <Button size="lg" variant="secondary">
+            How it works
+          </Button>
         </Link>
       </div>
     </div>
   );
-}
 
-// Left-aligned hero: stamp + script-accented headline + subcopy + two CTAs.
-export function CategoryHero({ stamp, heading, trip, children }) {
   return (
     <div data-section style={{ padding: "56px 56px 64px" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative" }}>
@@ -196,53 +197,40 @@ export function CategoryHero({ stamp, heading, trip, children }) {
             width: 104,
             height: 104,
             pointerEvents: "none",
+            zIndex: 3,
           }}
         />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: 22,
-            maxWidth: 720,
-          }}
-        >
-          <StampTag>{stamp}</StampTag>
-          <h1
+        {image ? (
+          <div
+            className="category-hero-grid"
             style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: 58,
-              lineHeight: 1.06,
-              color: "var(--teal-800)",
-              margin: 0,
-              textWrap: "pretty",
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1.05fr) minmax(0, 1fr)",
+              gap: 48,
+              alignItems: "center",
             }}
           >
-            {heading}
-          </h1>
-          <p
-            style={{
-              fontSize: 19,
-              lineHeight: 1.6,
-              color: "var(--ink-600)",
-              margin: 0,
-              maxWidth: 560,
-            }}
-          >
-            {children}
-          </p>
-          <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
-            <Link to={tripRequestHref(trip)} style={{ textDecoration: "none" }}>
-              <Button size="lg">Start a trip request</Button>
-            </Link>
-            <Link to="/#how" style={{ textDecoration: "none" }}>
-              <Button size="lg" variant="secondary">
-                How it works
-              </Button>
-            </Link>
+            {textCol}
+            <div
+              style={{
+                height: 420,
+                borderRadius: 22,
+                overflow: "hidden",
+                boxShadow: "0 18px 44px rgba(15,92,102,0.16)",
+              }}
+            >
+              <ImageSlot
+                src={image.jpg}
+                webp={image.webp}
+                alt={image.alt}
+                radius={22}
+                priority
+              />
+            </div>
           </div>
-        </div>
+        ) : (
+          textCol
+        )}
       </div>
     </div>
   );

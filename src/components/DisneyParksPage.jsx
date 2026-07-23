@@ -1,15 +1,8 @@
-import { Link } from "react-router-dom";
 import SiteHeader from "./SiteHeader.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { usePageTitle } from "../lib/usePageTitle.js";
-import {
-  Card,
-  CardSection,
-  CategoryHero,
-  FaqStrip,
-  FinalCta,
-  tripRequestHref,
-} from "./TripCategoryUI.jsx";
+import { Card, CardSection, CategoryHero, FaqStrip } from "./TripCategoryUI.jsx";
+import TripRequestForm, { TRIP_TYPE_BY_SLUG } from "./TripRequestForm.jsx";
 
 const TRIP = "disney";
 
@@ -93,7 +86,6 @@ export default function DisneyParksPage() {
 
       <CategoryHero
         stamp="DISNEY & PARKS"
-        trip={TRIP}
         heading={
           <>
             The parks, planned around your{" "}
@@ -123,9 +115,9 @@ export default function DisneyParksPage() {
         footer={
           <>
             Dreaming bigger — Disneyland Paris, Tokyo, or a Disney Cruise?{" "}
-            <Link to={tripRequestHref(TRIP)} style={{ color: "var(--coral-500)", fontWeight: 600 }}>
+            <a href="#request" style={{ color: "var(--coral-500)", fontWeight: 600 }}>
               Tell us the plan
-            </Link>{" "}
+            </a>{" "}
             and we'll take it from there.
           </>
         }
@@ -150,21 +142,7 @@ export default function DisneyParksPage() {
         documents for international parks.
       </FaqStrip>
 
-      <FinalCta
-        trip={TRIP}
-        headline={
-          <>
-            Ready to make some{" "}
-            <span style={{ fontFamily: "var(--font-script)", color: "var(--coral-400)", fontSize: 46 }}>
-              magic
-            </span>
-            ?
-          </>
-        }
-      >
-        Tell us who's going and what you're picturing. Katie replies within one
-        business day — free to ask, always.
-      </FinalCta>
+      <TripRequestForm defaultTripType={TRIP_TYPE_BY_SLUG[TRIP]} />
 
       <SiteFooter />
     </div>

@@ -1,15 +1,10 @@
-import { Link } from "react-router-dom";
 import SiteHeader from "./SiteHeader.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { usePageTitle } from "../lib/usePageTitle.js";
-import {
-  Card,
-  CardSection,
-  CategoryHero,
-  FaqStrip,
-  FinalCta,
-  tripRequestHref,
-} from "./TripCategoryUI.jsx";
+import { Card, CardSection, CategoryHero, FaqStrip } from "./TripCategoryUI.jsx";
+import TripRequestForm, { TRIP_TYPE_BY_SLUG } from "./TripRequestForm.jsx";
+import cruiseHeroJpg from "../assets/cruise-hero.jpg";
+import cruiseHeroWebp from "../assets/cruise-hero.webp";
 
 const TRIP = "cruise";
 
@@ -113,7 +108,11 @@ export default function FamilyCruisesPage() {
 
       <CategoryHero
         stamp="FAMILY CRUISES"
-        trip={TRIP}
+        image={{
+          jpg: cruiseHeroJpg,
+          webp: cruiseHeroWebp,
+          alt: "Turquoise water and a white-sand beach at a cruise line's private island.",
+        }}
         heading={
           <>
             Unpack once, wake up somewhere{" "}
@@ -142,9 +141,9 @@ export default function FamilyCruisesPage() {
         footer={
           <>
             Not sure which line fits?{" "}
-            <Link to={tripRequestHref(TRIP)} style={{ color: "var(--coral-500)", fontWeight: 600 }}>
+            <a href="#request" style={{ color: "var(--coral-500)", fontWeight: 600 }}>
               Tell us who's sailing
-            </Link>{" "}
+            </a>{" "}
             and we'll point you to the right ship.
           </>
         }
@@ -169,21 +168,7 @@ export default function FamilyCruisesPage() {
         required, travel protection, and deposit timelines.
       </FaqStrip>
 
-      <FinalCta
-        trip={TRIP}
-        headline={
-          <>
-            Ready to set{" "}
-            <span style={{ fontFamily: "var(--font-script)", color: "var(--coral-400)", fontSize: 46 }}>
-              sail
-            </span>
-            ?
-          </>
-        }
-      >
-        Tell us who's cruising and where you're dreaming of. Katie replies within
-        one business day — free to ask, always.
-      </FinalCta>
+      <TripRequestForm defaultTripType={TRIP_TYPE_BY_SLUG[TRIP]} />
 
       <SiteFooter />
     </div>
