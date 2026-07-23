@@ -15,23 +15,27 @@ import katieWebp from "../assets/katie.webp";
 const services = [
   {
     code: "MCO",
+    slug: "disney",
     name: "Disney & parks",
     blurb:
       "Park days, dining plans, Genie+ strategy, engineered around nap schedules.",
   },
   {
     code: "SEA",
+    slug: "cruises",
     name: "Family cruises",
     blurb:
       "Kids clubs, connecting cabins, and shore days that work for every age.",
   },
   {
     code: "SUN",
+    slug: "beach",
     name: "Beach & all-inclusive",
     blurb: "Warm-water resorts where the hardest choice is pool or ocean.",
   },
   {
     code: "ANY",
+    slug: "flights",
     name: "Flights + hotels",
     blurb: "City weekends, grandparent visits, big firsts — booked end to end.",
   },
@@ -400,6 +404,7 @@ export default function Home({ showSunburst = false }) {
             {services.map((s) => (
               <div
                 key={s.code}
+                id={`trips-${s.slug}`}
                 style={{
                   background: "var(--cream-050)",
                   borderRadius: 22,
@@ -407,6 +412,7 @@ export default function Home({ showSunburst = false }) {
                   display: "flex",
                   flexDirection: "column",
                   gap: 12,
+                  scrollMarginTop: 100,
                 }}
               >
                 <span

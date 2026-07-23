@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import Button from "../ds/Button.jsx";
 
@@ -6,12 +7,112 @@ import Button from "../ds/Button.jsx";
 // absolute "/#id" targets so they work from any route (they land on the home
 // page and scroll to the section); on the home page itself they scroll in place.
 const NAV_LINKS = [
-  { label: "Trips", href: "/#trips" },
   { label: "How it works", href: "/#how" },
   { label: "About", href: "/#about" },
 ];
 
+// Sub-items under "Trips" — each deep-links to a service card in the #trips
+// section (ids set in Home.jsx).
+const TRIPS_MENU = [
+  { label: "Disney & parks", href: "/trips/disney" },
+  { label: "Family cruises", href: "/#trips-cruises" },
+  { label: "Beach & all-inclusive", href: "/#trips-beach" },
+];
+
 const WORDMARK_SIZE = 26;
+
+// "Trips" nav item with a hover/focus dropdown. The trigger itself still links
+// to the whole #trips section; the menu deep-links to individual categories.
+function TripsNav() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      style={{ position: "relative", display: "inline-flex" }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setOpen(false);
+      }}
+    >
+      <Link
+        to="/#trips"
+        className="nav-link"
+        aria-haspopup="true"
+        aria-expanded={open}
+        onFocus={() => setOpen(true)}
+        style={{
+          color: "var(--teal-800)",
+          textDecoration: "none",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 5,
+        }}
+      >
+        Trips
+        <svg
+          width="11"
+          height="11"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            transform: open ? "rotate(180deg)" : "none",
+            transition: "transform var(--duration-fast, 160ms) var(--ease-standard, ease)",
+          }}
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </Link>
+      {open && (
+        <div
+          style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            paddingTop: 12,
+            zIndex: 20,
+          }}
+        >
+          <div
+            style={{
+              background: "var(--white)",
+              borderRadius: 14,
+              boxShadow: "0 14px 30px -12px rgba(13,71,80,0.30)",
+              padding: 8,
+              minWidth: 220,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {TRIPS_MENU.map((m) => (
+              <Link
+                key={m.href}
+                to={m.href}
+                className="nav-dropdown-link"
+                onClick={() => setOpen(false)}
+                style={{
+                  display: "block",
+                  padding: "10px 14px",
+                  borderRadius: 10,
+                  color: "var(--teal-800)",
+                  textDecoration: "none",
+                  fontSize: 15,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {m.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function SiteHeader() {
   const location = useLocation();
@@ -95,6 +196,7 @@ export default function SiteHeader() {
           color: "var(--teal-800)",
         }}
       >
+        <TripsNav />
         {NAV_LINKS.map((l) => (
           <Link
             key={l.href}

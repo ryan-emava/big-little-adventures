@@ -31,6 +31,17 @@ a:hover {
   color: var(--coral-500) !important;
 }
 
+/* Trips dropdown items */
+#main-nav .nav-dropdown-link {
+  transition: background var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+#main-nav .nav-dropdown-link:hover,
+#main-nav .nav-dropdown-link:focus-visible {
+  background: var(--peach-100);
+  color: var(--coral-500) !important;
+}
+
 /* Inquiry form field focus (ported from style-focus) */
 #request input:focus,
 #request select:focus,
