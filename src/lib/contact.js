@@ -15,7 +15,7 @@ export const social = {
 
 // Business identity for the footer / legal pages.
 export const business = {
-  legalName: "Big Little Adventures LLC",
+  legalName: "Big Little Adventures",
   location: 'Fort Worth, TX', // e.g. "Fort Worth, TX" — hidden until set
   foundedYear: 2026,
   // Texas has no seller-of-travel law, but FL/CA/WA/HI regulate selling to their

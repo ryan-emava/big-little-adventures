@@ -81,6 +81,17 @@ export default function SiteFooter() {
             Terms
           </Link>
         </span>
+        <span style={{ fontSize: 12, color: "var(--teal-100)", opacity: 0.75 }}>
+          Created by{" "}
+          <a
+            href="https://emava.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "var(--teal-100)" }}
+          >
+            Emava Technologies
+          </a>
+        </span>
       </div>
       <div
         className="footer-links"
