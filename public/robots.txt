@@ -3,4 +3,4 @@ Allow: /
 Disallow: /client/
 Disallow: /t/
 
-Sitemap: https://biglittleadventures.co/sitemap.xml
+Sitemap: https://www.biglittleadventures.co/sitemap.xml
